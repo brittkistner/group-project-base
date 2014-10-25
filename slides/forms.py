@@ -12,8 +12,8 @@ class UserForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
-        self.fields['image'] = "Upload a new profile photo"
-        self.fields['name'] = "Real Name"
+        self.fields['image'].label = "Upload a new profile photo"
+        self.fields['name'].label = "Real Name"
         #upload a new profile photo
         #real name
         #request username or set email as username
@@ -24,7 +24,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("Username", "name", "email", "password1", "password2", "image")
+        fields = ("username", "name", "email", "password1", "password2", "image")
 
     def clean_username(self):
         username = self.cleaned_data["username"]

@@ -9,6 +9,17 @@ urlpatterns = patterns('',
 
     url("^$", TemplateView.as_view(template_name="index.html"), name="slides_home"),
 
+    # LOGIN AND REGISTER
+    url("^login/$", 'django.contrib.auth.views.login', name='login'),
+    url("^register/$", 'slides.views.register', name="register"),
+
+    # PASSWORD RESET
+    url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
+    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    'django.contrib.auth.views.password_reset_confirm',
+    name='password_reset_confirm'),
+
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),
     url("^week1/2/$", TemplateView.as_view(template_name="week1/2.html"), name="week1_day2"),
