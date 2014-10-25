@@ -5,7 +5,7 @@ from slides.forms import UserForm
 
 def register(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             # text_content = 'Thank you for signing up for our website, {}'.format(user.username)
