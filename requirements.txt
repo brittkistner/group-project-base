@@ -1,6 +1,11 @@
 Django==1.7.1
 Fabric==1.8.2
+Pillow==2.6.1
 argparse==1.2.1
+boto==2.34.0
+django-boto==0.3.8
+django-crispy-forms==1.4.0
+django-storages==1.1.8
 ecdsa==0.10
 paramiko==1.12.2
 psycopg2==2.5.4
