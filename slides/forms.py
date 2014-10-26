@@ -2,6 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.contrib.auth.forms import UserCreationForm
 from slides.models import User
+from django import forms
 
 
 class UserForm(UserCreationForm):
@@ -36,3 +37,6 @@ class UserForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
+
+# class CommmentForm(forms.Form):
+

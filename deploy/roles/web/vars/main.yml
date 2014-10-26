@@ -1,0 +1,7 @@
+---
+
+virtualenv_path: "/home/ubuntu/.virtualenvs/group_project_venv"
+git_repo: https://github.com/brittkistner/group-project-base.git
+project_name: group_project
+project_path: "/home/ubuntu/{{ project_name }}"
+requirements_file: "{{ project_path }}/requirements.txt"

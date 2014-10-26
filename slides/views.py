@@ -5,6 +5,7 @@ from slides.forms import UserForm
 
 def register(request):
     if request.method == 'POST':
+        print request.FILES
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
