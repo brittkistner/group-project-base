@@ -6,3 +6,9 @@
 
 - name: Ensure user owns our project
   file: state=directory path={{ project_path }} owner=ubuntu
+
+
+#  - name: ensure user ownds project
+#  file: path={{ project_path }}
+#        owner=ubuntu
+#        group=ubuntu
