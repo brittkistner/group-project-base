@@ -13,7 +13,6 @@ from slides.models import Comment, Attachment
 # REGISTRATION #
 ###############
 
-
 def register(request):
     if request.method == 'POST':
         print request.FILES

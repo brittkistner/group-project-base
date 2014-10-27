@@ -15,7 +15,6 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda i: 'User%d' % i)
     email = factory.lazy_attribute(lambda o: '%s@gmail.com' % o.username)
     password = factory.PostGenerationMethodCall("set_password", "password")
-    #how to create an image file?
 
 class ViewTestCase(TestCase):
     def test_register_page(self):
@@ -50,11 +49,31 @@ class ViewTestCase(TestCase):
         }
         self.client.post(reverse('login'), data)
 
-    def create_attachemnt(self):
+    def test_edit_profile_page(self):
+        pass
+        # user = UserFactory.create_batch(1)[0]
+        #
+        # data = {
+        #     'username': 'new-user',
+        # }
+        #
+        # response = self.client.post(reverse('register'), data)
+
+
+    def test_create_attachemnt(self):
+        pass
+    #TODO
+
+    def test_create_comment(self):
+        pass
+    #TODO
+
+    def test_profile_page(self):
         pass
 
-    def create_comment(self):
-        pass
+
+
+
 
 class FormTestCase(TestCase):
     def test_clean_username_exception(self):
@@ -67,9 +86,13 @@ class FormTestCase(TestCase):
         with self.assertRaises(ValidationError):
             form.clean_username()
 
+    def test_commentform(self):
+        pass
+    #TODO
+
 class ModelTestCase(TestCase):
     def setUp(self):
-        self.user1 = User.objects.create(
+        self.user = User.objects.create(
             image='',
             name='user1',
             username='user1',
@@ -78,9 +101,9 @@ class ModelTestCase(TestCase):
             last_name='1',
             password='1',
         )
-        self.comment1 = Comment.objects.create(
+        self.comment = Comment.objects.create(
             text='hello',
-            user=self.user1,
+            user=self.user,
             date=datetime.now(),
             week_number='1',
             day='5_am',
@@ -90,11 +113,14 @@ class ModelTestCase(TestCase):
         self.attachment = Attachment.objects.create(
             file='',
             uuid='abcd',
-            comment=self.comment1,
+            comment=self.comment,
         )
 
     def test_user_unicode(self):
-        self.assertEqual(self.user1.__unicode__(), 'user1')
+        self.assertEqual(self.user.__unicode__(), 'user1')
 
     def test_comment_unicode(self):
-        self.assertEqual(self.comment1.__unicode__(), 'slide from week1/5_am/#/2/1')
+        self.assertEqual(self.comment.__unicode__(), 'slide from week1/5_am/#/2/1')
+
+    def test_attachement_unicode(self):
+        self.assertEqual(self.attachment.__unicode__(), 'abcd')

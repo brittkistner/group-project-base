@@ -16,12 +16,6 @@ class UserForm(UserCreationForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
-        #upload a new profile photo
-        #real name
-        #request username or set email as username
-        #email
-        #password
-        #confirm password
 
 
     class Meta:
