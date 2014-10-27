@@ -24,8 +24,8 @@ class Comment(models.Model):
 
 class Attachment(models.Model):
     file = models.ImageField(upload_to='media/comment_attachment', blank=True, null=True)
-    # uuid =
+    uuid = models.CharField(max_length=255)
     comment = models.ForeignKey(Comment, related_name="attachments", blank=True, null=True)
 
     def __unicode__(self):
-        return self.pk
+        return self.uuid

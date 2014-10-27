@@ -78,7 +78,7 @@ class ModelTestCase(TestCase):
             last_name='1',
             password='1',
         )
-        self.comment = Comment.objects.create(
+        self.comment1 = Comment.objects.create(
             text='hello',
             user=self.user1,
             date=datetime.now(),
@@ -87,10 +87,14 @@ class ModelTestCase(TestCase):
             slide_set='2',
             slide_number='1',
         )
-        # self.attachment = Attachment.objects.create()
+        self.attachment = Attachment.objects.create(
+            file='',
+            uuid='abcd',
+            comment=self.comment1,
+        )
 
     def test_user_unicode(self):
         self.assertEqual(self.user1.__unicode__(), 'user1')
 
     def test_comment_unicode(self):
-        self.assertEqual(self.comment.__unicode__(), 'slide from week1/5_am/#/2/1')
+        self.assertEqual(self.comment1.__unicode__(), 'slide from week1/5_am/#/2/1')
