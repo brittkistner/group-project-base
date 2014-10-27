@@ -5,3 +5,4 @@ git_repo: https://github.com/brittkistner/group-project-base
 project_name: group_project
 project_path: "/home/ubuntu/{{ project_name }}"
 requirements_file: "{{ project_path }}/requirements.txt"
+application_name: "lms"

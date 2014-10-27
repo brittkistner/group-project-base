@@ -38,5 +38,6 @@ class UserForm(UserCreationForm):
             code='duplicate_username',
         )
 
-# class CommmentForm(forms.Form):
-
+class CommmentForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea)
+    # attachments =
