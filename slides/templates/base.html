@@ -16,7 +16,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="{% static "css/reveal.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -54,15 +54,17 @@
                 </div>
                 <div class="col-5">
                     <a href="{% url "slides_home" %}" id="rocketULogo"><img class="pull-right" src="{% static "img/rocketu-logo-dark.png" %}"></a>
+
                 </div>
             </div>
 
             {% block title_slide %}
                 <section class="titleSlide" data-background="#168eae">
-                    <h1>{% block presentation_title%}{% endblock %}</h1>
+                    <h1>{% block presentation_title %}{% endblock %}</h1>
                     <a id="yetiLogo" href="http://www.yetihq.com/"><img src="{% static "img/yeti-power.png" %}"></a>
                 </section>
             {% endblock %}
+
             {% block slides %}
             {% endblock %}
 

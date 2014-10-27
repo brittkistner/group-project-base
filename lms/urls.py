@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url("^$", TemplateView.as_view(template_name="index.html"), name="slides_home"),
+    url("^test$", TemplateView.as_view(template_name="test.html"), name="test"),
 
     # LOGIN AND REGISTER
     url("^login/$", 'django.contrib.auth.views.login', name='login'),

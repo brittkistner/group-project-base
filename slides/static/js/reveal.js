@@ -23,7 +23,8 @@ var Reveal = (function(){
 			height: 700,
 
 			// Factor of the display size that should remain empty around the content
-			margin: 0.1,
+            // Changed to 0
+			margin: -1.0,
 
 			// Bounds for smallest/largest possible scale to apply to content
 			minScale: 0.2,
@@ -330,6 +331,7 @@ var Reveal = (function(){
 
 		// Notify listeners that the presentation is ready but use a 1ms
 		// timeout to ensure it's not fired synchronously after #initialize()
+
 		setTimeout( function() {
 			// Enable transitions now that we're loaded
 			dom.slides.classList.remove( 'no-transition' );
