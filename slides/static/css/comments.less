@@ -7,52 +7,49 @@
 }
 
 #right-nav {
-    /*padding-left: 10px;*/
-    border-left: 3px solid @left-divider;
-    margin-left: 2%;
 
-    /* Push the divider to the way to the top but pull the text back down*/
-    margin-top: -20px;
-    padding-top: 20px;
+  border-left: 3px solid @left-divider;
+  // top right bottom left
+  margin: -20px 0  0 3%;
 
-    /* This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page */
-    height: 750px;
+  // Push the divider to the way to the top but pull the text back down
+  padding-top: 20px;
+
+  // This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page
+  height: 750px;
+  width: 375px;
+
 
 }
 
 
-#overall-comments {
-    height: 750px;
-    overflow-y: auto;
-    overflow-x: visible;
-    div {
+#comment-block {
 
-        /*margin-left: -10px;*/
-        margin-bottom: -10px;
+  height: 750px;
+  overflow-y: auto;
 
-    }
+  // Extend the line to the divider but bring the text back in
+  margin: -10px -30px 0 -30px !important;
+  padding: 0 30px 0 30px;
+  div {
+    // top right bottom left
+    width: 80%;
+    font-size: 18px;
+    color: darkgrey;
+  }
 
-    /* The horizontal line within the comments is shorter than under resources */
-    hr {
-        margin-left: -20px;
-    }
 }
 
 #resources {
-    margin-top: 0;
-    margin-bottom: 2%;
+  margin-top: 0;
+  margin-bottom: -15px;
 
-    button {
-        position: relative;
-        float: right;
-        margin-top: 3%;
-    }
+
+  button {
+      position: relative;
+      float: right;
+  }
   font-family: 'ProximaNova-Bold';
-}
-
-hr {
-    color: @horizontal-line;
-
 }
 
 
@@ -60,6 +57,19 @@ hr {
 
 //    font-size: 12px;
   font-size: 15px;
+  overflow: visible;
+  border-bottom: lightgrey;
+}
 
+#runningTitle {
+  margin-left: 1%;
+}
 
+.reveal .slides > section, .reveal .slides > section > section {
+  margin-left: 1%;
+  width: 68%
+}
+
+.accordion {
+  font-size: 15px;
 }

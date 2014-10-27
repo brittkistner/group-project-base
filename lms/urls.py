@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url("^$", TemplateView.as_view(template_name="index.html"), name="slides_home"),
-    url("^test$", TemplateView.as_view(template_name="test.html"), name="slides_home"),
+    url("^test$", TemplateView.as_view(template_name="test.html"), name="test"),
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),
