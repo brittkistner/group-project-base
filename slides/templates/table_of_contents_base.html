@@ -16,7 +16,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="{% static 'css/reveal.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -71,7 +71,19 @@
                             <hr>
                             <!-------< Comments with resources >------->
                             <div id="overall-comments">
-                                <div id="comments">
+                                <div>
+                                    <p>Here is some text</p>
+                                </div>
+                                <hr>
+                                <div>
+                                    <p>Here is some text</p>
+                                </div>
+                                <hr>
+                                <div>
+                                    <p>Here is some text</p>
+                                </div>
+                                <hr>
+                                <div>
                                     <p>Here is some text</p>
                                 </div>
                                 <hr>
@@ -96,7 +108,8 @@
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
-            width: 1170,
+            // This sets the page width and height
+            width: 1250,
             height: 750,
             controls: true,
             progress: true,
