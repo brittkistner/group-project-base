@@ -1,3 +1,12 @@
+/*
+
+    CHANGES
+
+    - "btn btn-default" background-color, height, and width
+
+*/
+
+
 /*!
  * Bootstrap v3.1.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -2040,8 +2049,10 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #333;
-  background-color: #fff;
+  background-color: #E6E6E6;
   border-color: #ccc;
+  height: 30px;
+  width: 75px;
 }
 .btn-default:hover,
 .btn-default:focus,

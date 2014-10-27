@@ -10,16 +10,14 @@
 #right-nav {
     /*padding-left: 10px;*/
     border-left: 3px solid @left-divider;
-    margin-left: 2%;
-<<<<<<< HEAD
-    /* Push the line all the way to the top*/
-=======
+    margin-left: 3%;
 
     /* Push the divider to the way to the top */
->>>>>>> fbbf872e7d3a6a760b1b298d00566e35d83a7d18
     margin-top: -20px;
     padding-top: 20px;
     height: 750px;
+    width: 375px;
+
 
 }
 
@@ -28,9 +26,13 @@
     div {
         width: 100%;
         height: 80%;
-        /*margin-left: -10px;*/
         margin-bottom: -10px;
         overflow-y: auto;
+        font-size: 18px;
+        color: darkgrey;
+
+
+
     }
 
     /* The horizontal line within the comments is shorter than under resources */
@@ -41,7 +43,7 @@
 
 #resources {
     margin-top: 0;
-    margin-bottom: 2%;
+    margin-bottom: 0;
 
     button {
         position: relative;
@@ -52,5 +54,19 @@
 
 hr {
     color: @horizontal-line;
+    margin: 10px;
 
 }
+
+#add-resource {
+    display: inline;
+}
+
+.resources {
+    display: inline;
+
+}
+
+
+
+
