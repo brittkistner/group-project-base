@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from slides.models import User
 from django import forms
 
@@ -30,10 +31,14 @@ class UserForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data["username"]
         try:
+            print "in try"
             User.objects.get(username=username)
+            print "leaving try"
         except User.DoesNotExist:
+            print "in except"
             return username
-        raise User.ValidationError(
+        print "entering raise?"
+        raise ValidationError(
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )

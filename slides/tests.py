@@ -18,27 +18,27 @@ class UserFactory(factory.django.DjangoModelFactory):
     #how to create an image file?
 
 class ViewTestCase(TestCase):
-    # def test_register_page(self):
-    #     username = 'new-user'
-    #     data = {
-    #         'username': username,
-    #         'email': 'test@test.com',
-    #         'password1': 'test',
-    #         'password2': 'test',
-    #         # 'image': how to test?
-    #     }
-    #
-    #     response = self.client.post(reverse('register'), data)
-    #
-    #     print response
-    #
-    #     # Check this user was created in the database
-    #     self.assertTrue(User.objects.filter(username=username).exists())
-    #
-    #     # Check it's a redirect to the slides index page
-    #     self.assertIsInstance(response, HttpResponseRedirect)
-    #
-    #     # self.assertTrue(response.get('location').endswith(reverse('slides_home')))
+    def test_register_page(self):
+        username = 'new-user'
+        data = {
+            'username': username,
+            'email': 'test@test.com',
+            'name': 'new-user',
+            'password1': 'test',
+            'password2': 'test',
+            'image': ''
+        }
+
+        response = self.client.post(reverse('register'), data)
+
+
+        # Check this user was created in the database
+        self.assertTrue(User.objects.filter(username=username).exists())
+
+        # Check it's a redirect to the slides index page
+        self.assertIsInstance(response, HttpResponseRedirect)
+
+        self.assertTrue(response.get('location').endswith(reverse('slides_home')))
 
 
     def test_login_page(self):
@@ -57,19 +57,18 @@ class ViewTestCase(TestCase):
         pass
 
 class FormTestCase(TestCase):
-    pass
-    # def test_clean_username_exception(self):
-    #     # Create a player so that this username we're testing is already taken
-    #     User.objects.create_user(username='test-user')
-    #
-    #     form = UserForm()
-    #     form.cleaned_data = {'username': 'test-user'}
-    #
-    #     with self.assertRaises(ValidationError):
-    #         form.clean_username()
+    def test_clean_username_exception(self):
+        # Create a player so that this username we're testing is already taken
+        User.objects.create_user(username='test-user')
+
+        form = UserForm()
+        form.cleaned_data = {'username': 'test-user'}
+
+        with self.assertRaises(ValidationError):
+            form.clean_username()
 
 class ModelTestCase(TestCase):
-    def setup(self):
+    def setUp(self):
         self.user1 = User.objects.create(
             image='',
             name='user1',
@@ -90,8 +89,8 @@ class ModelTestCase(TestCase):
         )
         # self.attachment = Attachment.objects.create()
 
-    def test_user_uicode(self):
+    def test_user_unicode(self):
         self.assertEqual(self.user1.__unicode__(), 'user1')
 
-    def test_comment_uicode(self):
+    def test_comment_unicode(self):
         self.assertEqual(self.comment.__unicode__(), 'slide from week1/5_am/#/2/1')
