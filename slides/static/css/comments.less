@@ -1,4 +1,3 @@
-
 @left-divider: #C7C7C7;
 @horizontal-line: #EBEBEB;
 
@@ -12,26 +11,30 @@
     border-left: 3px solid @left-divider;
     margin-left: 2%;
 
-    /* Push the divider to the way to the top */
+    /* Push the divider to the way to the top but pull the text back down*/
     margin-top: -20px;
     padding-top: 20px;
+
+    /* This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page */
     height: 750px;
 
 }
 
-#overall-comments {
 
+#overall-comments {
+    height: 750px;
+    overflow-y: auto;
+    overflow-x: visible;
     div {
-        width: 100%;
-        height: 80%;
+
         /*margin-left: -10px;*/
         margin-bottom: -10px;
-        overflow-y: auto;
+
     }
 
     /* The horizontal line within the comments is shorter than under resources */
     hr {
-        margin-left: -7px;
+        margin-left: -20px;
     }
 }
 
@@ -44,9 +47,19 @@
         float: right;
         margin-top: 3%;
     }
+  font-family: 'ProximaNova-Bold';
 }
 
 hr {
     color: @horizontal-line;
+
+}
+
+
+#single-comment {
+
+//    font-size: 12px;
+  font-size: 15px;
+
 
 }
