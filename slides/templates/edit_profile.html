@@ -1,0 +1,8 @@
+{% load crispy_forms_tags %}
+
+<h1>Edit Account</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>
