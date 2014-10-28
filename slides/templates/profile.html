@@ -1,2 +1,54 @@
-<h1>Account</h1>
-<a href="{% url 'edit_profile' %}"><button id="edit">Edit Account</button></a>
+{% load static %}
+
+{#{% load crispy_forms_tags %}#}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+
+<div class="container" id="page">
+<div class="logo">
+
+    <img id="rocket" src="{% static "img/rocketu-logo-dark.png" %}" alt=""/></div>
+
+
+    <p id="editAccount">Welcome, {{ User.name }}</p>
+    <hr>
+
+<div class="wholePage">
+    <div class="profilePic">
+        <div>
+            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
+        </div>
+
+    </div>
+
+{# FORMS  #}
+
+    <div>
+        <p class="info">
+            Name:
+        </p>
+    </div>
+    <div class="emailInfo">
+        <p class="info">
+            Email:
+        </p>
+    </div>
+    <div id="edit">
+        <a href="{% url 'edit_profile' %}"><button class="btn btn-primary">Edit Account</button></a>
+    </div>
+
+</body>
+</html>
+
+
+
+
+

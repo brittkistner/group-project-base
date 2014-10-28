@@ -17,7 +17,6 @@ class UserForm(UserCreationForm):
         self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
 
-
     class Meta:
         model = User
         fields = ("username", "name", "email", "password1", "password2", "image")

@@ -39,12 +39,15 @@ def register(request):
 ###########
 # PROFILE #
 ###########
+
+
 def profile(request):
     return render(request, 'profile.html')
 
 ################
 # EDIT PROFILE #
 ################
+
 
 def edit_profile(request):
     if request.method == "POST":
@@ -66,6 +69,7 @@ def edit_profile(request):
 ########################
 # CREATING ATTACHMENTS #
 #######################
+
 
 def create_attachment(attachments, comment):
     attachments = []

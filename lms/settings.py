@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'slides',
     'storages',
     'crispy_forms',
+    'django_forms_bootstrap',
 )
 
 
