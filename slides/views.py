@@ -69,35 +69,35 @@ def edit_profile(request):
 
 def create_attachment(attachments, comment):
     attachments = []
-    # for attachment in attachments:
-    #     attachment = Attachment.objects.create(file=, comment=comment)
-    # complete guid check here
-    # # uuid =
-    #     attachments.append(attachment)
-    # str(uuid.uuid4())
+    for attachment in attachments:
+        unique_id = str(uuid.uuid4())
+        while Attachment.objects.filter(uuid=unique_id).exists():
+            unique_id = str(uuid.uuid4())
+        attachment = Attachment.objects.create(file='', comment=comment, uuid=unique_id) #change file to attachment.file
+        attachments.append(attachment)
     return attachments
 
 ###################
 # RESOURCE UPLOAD #
 ###################
 
-def image_upload(request):
-    response = {'files': []}
-    # Loop through our files in the files list uploaded
-    file_info = {}
-    for file in request.FILES.getlist('files[]'):
-        file_info[file.name] = file
-
-        # Save output for return as JSON
-        response['files'].append({
-            'name': '%s' % file.name,
-            'size': '%d' % file.size,
-            # 'thumbnailUrl': '%s' % new_image.picture.url,
-            # 'deleteUrl': '\/image\/delete\/%s' % file.name,
-            # "deleteType": 'DELETE'
-        })
-
-    return HttpResponse(json.dumps(response), content_type='application/json')
+# def image_upload(request):
+#     response = {'files': []}
+#     # Loop through our files in the files list uploaded
+#     file_info = {}
+#     for file in request.FILES.getlist('files[]'):
+#         file_info[file.name] = file
+#
+#         # Save output for return as JSON
+#         response['files'].append({
+#             'name': '%s' % file.name,
+#             'size': '%d' % file.size,
+#             # 'thumbnailUrl': '%s' % new_image.picture.url,
+#             # 'deleteUrl': '\/image\/delete\/%s' % file.name,
+#             # "deleteType": 'DELETE'
+#         })
+#
+#     return HttpResponse(json.dumps(response), content_type='application/json')
 
 ######################
 # CREATING COMMENTS #
