@@ -25,11 +25,12 @@ dt {
   margin-bottom: -100px;
   display: block;
 
-  h3 {
+  h2 {
 //    margin-top: 3%;
     float: left;
     width: 400px;
     color: black;
+    border-bottom: none;
   }
 
   img {
@@ -40,5 +41,18 @@ dt {
     // Remove the inherent box shadow
     box-shadow: 0 0 0 0 !important;
   }
+
+}
+
+#search-box {
+  margin-bottom: 5%;
+  border: 1px solid white;
+  width: 500px;
+  font-size: 45px;
+}
+
+input:focus {
+  // Remove outside box when user is typing search term
+  outline: none;
 
 }
