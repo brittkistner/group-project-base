@@ -131,13 +131,21 @@ def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number
 #######################
 # RETRIEVING COMMENTS #
 ######################
-def get_comment(request, week_number, day, slide_set, slide_number):
-
+#Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
+#create ajax call
+def get_comment(request, week_number, day):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
-    comments = Comment.objects.filter(week_number=week_number, day=day)
+    comments = Comment.objects.filter(week_number=week_number, day=day).order_by('slide_set','slide_number', 'date')
+    data = {'comments': comments}
+    return render(request, "all_comments.html", data)
 
 #######################
 # REFRESH COMMENTS #
 ######################
-def update_comments(request):
-    pass
+#Update comments for the comment section which is open (or which has just been clicked)
+#create ajax call
+def update_comments(request, week_number, day, slide_set, slide_number):
+    comments = Comment.objects.filter(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number).order_by('date')
+    data = {'comments': comments}
+    return render(request, "update_comments.html", data)
+

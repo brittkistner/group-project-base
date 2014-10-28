@@ -122,5 +122,3 @@ class ModelTestCase(TestCase):
     def test_comment_unicode(self):
         self.assertEqual(self.comment.__unicode__(), 'slide from week1/5_am/#/2/1')
 
-    def test_attachement_unicode(self):
-        self.assertEqual(self.attachment.__unicode__(), 'abcd')

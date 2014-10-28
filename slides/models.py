@@ -23,9 +23,9 @@ class Comment(models.Model):
 # https://students.rocketu.com/weekweek_number/day/#/slide_set/slide_number
 
 class Attachment(models.Model):
-    file = models.ImageField(upload_to='media/comment_attachment', blank=True, null=True)
+    file = models.FileField(upload_to='media/comment_attachment', blank=True, null=True)
     uuid = models.CharField(max_length=255)
     comment = models.ForeignKey(Comment, related_name="attachments", blank=True, null=True)
 
     def __unicode__(self):
-        return self.uuid
+        return self.file.name.split('/')[2]  #FIX and add test
