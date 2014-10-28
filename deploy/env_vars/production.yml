@@ -1,7 +1,0 @@
----
-
-db_name: "group_project"
-db_user: "group_project"
-db_password: "hello"
-nginx_server_name: "ec2-54-191-44-247.us-west-2.compute.amazonaws.com"
-django_settings_file: lms.settings
