@@ -28,7 +28,11 @@ class Migration(migrations.Migration):
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
+<<<<<<< HEAD
                 ('image', models.ImageField(null=True, upload_to=b'media/user_photo', blank=True)),
+=======
+                ('image', models.ImageField(null=True, upload_to=b'user_photo', blank=True)),
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
                 ('name', models.CharField(max_length=255)),
                 ('groups', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions')),
@@ -41,6 +45,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+<<<<<<< HEAD
             name='Attachment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -52,25 +57,33 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
             name='Comment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.TextField()),
                 ('date', models.DateTimeField(auto_now_add=True)),
+<<<<<<< HEAD
                 ('week_number', models.IntegerField()),
                 ('day', models.CharField(max_length=5)),
                 ('slide_set', models.IntegerField()),
                 ('slide_number', models.IntegerField()),
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
                 ('user', models.ForeignKey(related_name='comments', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
             bases=(models.Model,),
         ),
+<<<<<<< HEAD
         migrations.AddField(
             model_name='attachment',
             name='comment',
             field=models.ForeignKey(related_name='attachments', blank=True, to='slides.Comment', null=True),
             preserve_default=True,
         ),
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
     ]

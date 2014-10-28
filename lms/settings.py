@@ -40,7 +40,10 @@ INSTALLED_APPS = (
     'slides',
     'storages',
     'crispy_forms',
+<<<<<<< HEAD
     'django_forms_bootstrap',
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 )
 
 
@@ -106,7 +109,11 @@ try:
 except ImportError:
     pass
 
+<<<<<<< HEAD
 # try:
 #     from production import *
 # except ImportError:
 #     pass
+=======
+print MEDIA_URL
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e

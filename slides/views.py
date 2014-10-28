@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 from django.contrib.auth import authenticate, login
 from django.contrib.comments import CommentForm
@@ -12,6 +13,12 @@ from slides.models import Comment, Attachment
 ###############
 # REGISTRATION #
 ###############
+=======
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from slides.forms import UserForm
+
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
 def register(request):
     if request.method == 'POST':
@@ -27,7 +34,11 @@ def register(request):
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1'])
             login(request, new_user)
+<<<<<<< HEAD
             return redirect("slides_home")
+=======
+            return redirect("/")
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
     else:
         form = UserForm()
@@ -35,6 +46,7 @@ def register(request):
     return render(request, "registration/register.html", {
         'form': form,
     })
+<<<<<<< HEAD
 
 ###########
 # PROFILE #
@@ -145,3 +157,5 @@ def get_comment(request, week_number, day, slide_set, slide_number):
 ######################
 def update_comments(request):
     pass
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e

@@ -1,7 +1,10 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.contrib.auth.forms import UserCreationForm
+<<<<<<< HEAD
 from django.core.exceptions import ValidationError
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 from slides.models import User
 from django import forms
 
@@ -16,6 +19,16 @@ class UserForm(UserCreationForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
+<<<<<<< HEAD
+=======
+        #upload a new profile photo
+        #real name
+        #request username or set email as username
+        #email
+        #password
+        #confirm password
+
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
     class Meta:
         model = User
@@ -24,6 +37,7 @@ class UserForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data["username"]
         try:
+<<<<<<< HEAD
             print "in try"
             User.objects.get(username=username)
             print "leaving try"
@@ -32,10 +46,21 @@ class UserForm(UserCreationForm):
             return username
         print "entering raise?"
         raise ValidationError(
+=======
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise User.ValidationError(
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
 
+<<<<<<< HEAD
 class CommmentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     attachments = forms.FileField()
+=======
+# class CommmentForm(forms.Form):
+
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e

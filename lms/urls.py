@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     'django.contrib.auth.views.password_reset_confirm',
     name='password_reset_confirm'),
+<<<<<<< HEAD
     #PROFILE
     url(r'^profile/$', 'slides.views.profile', name='profile'),
     url(r'^profile/edit/$', 'slides.views.edit_profile', name='edit_profile'),
@@ -27,6 +28,8 @@ urlpatterns = patterns('',
     # CREATE COMMENT
     # url(r'^create_comment/week(?P<week_number>\d+)/(?P<day>\w+)/#/(?P<slide_set>\d+)/(?P<slide_number>\d+)', 'slides.views.create_comment', name="create_comment"),
     url(r'^create_comment/$', 'slides.views.create_comment', name="create_comment"),
+=======
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),
@@ -60,7 +63,12 @@ urlpatterns = patterns('',
     url("^week3/lab/$", TemplateView.as_view(template_name="week3/lab.html"), name="week3_lab"),
 )
 
+<<<<<<< HEAD
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+=======
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+>>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
