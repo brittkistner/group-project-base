@@ -39,4 +39,4 @@ class UserForm(UserCreationForm):
 
 class CommmentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
-    # attachments =
+    attachments = forms.FileField()
