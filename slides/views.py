@@ -1,28 +1,21 @@
-<<<<<<< HEAD
 import json
 from django.contrib.auth import authenticate, login
 from django.contrib.comments import CommentForm
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from slides.forms import UserForm, CommmentForm
 import uuid
-from slides.models import Comment, Attachment
+from slides.models import Comment, Attachment, Slide
 
 ###############
 # REGISTRATION #
 ###############
-=======
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from slides.forms import UserForm
-
->>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
 def register(request):
     if request.method == 'POST':
-        print request.FILES
+        # print request.FILES
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
@@ -34,11 +27,7 @@ def register(request):
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password1'])
             login(request, new_user)
-<<<<<<< HEAD
             return redirect("slides_home")
-=======
-            return redirect("/")
->>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
 
     else:
         form = UserForm()
@@ -46,13 +35,10 @@ def register(request):
     return render(request, "registration/register.html", {
         'form': form,
     })
-<<<<<<< HEAD
 
 ###########
 # PROFILE #
 ###########
-
-
 def profile(request):
     return render(request, 'profile.html')
 
@@ -60,20 +46,21 @@ def profile(request):
 # EDIT PROFILE #
 ################
 
-
 def edit_profile(request):
     if request.method == "POST":
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
-        form = UserForm(request.POST, instance=request.user)
-        if form.is_valid():
-            if form.save():
-                return redirect("profile")
+        # pass in request.files
+        # User.objets.filter(pk=request.user.id).update(pass in all fields, field=???)
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+        user = form.save(commit=False)
+        user.save()
+        return redirect("profile")
     else:
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
         form = UserForm(instance=request.user)
-    data = {"form": form}
+    data = {"user": request.user, "form": form}
     return render(request, "edit_profile.html", data)
 
 
@@ -81,7 +68,6 @@ def edit_profile(request):
 ########################
 # CREATING ATTACHMENTS #
 #######################
-
 
 def create_attachment(attachments, comment):
     attachments = []
@@ -147,15 +133,20 @@ def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number
 #######################
 # RETRIEVING COMMENTS #
 ######################
-def get_comment(request, week_number, day, slide_set, slide_number):
-
+#Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
+#create ajax call
+def get_comment(request, week_number, day):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
-    comments = Comment.objects.filter(week_number=week_number, day=day)
+    slides = Slide.objects.filter(week_number=week_number, day=day).order_by('slide_set','slide_number', 'date')
+    data = {'slides': slides}
+    return render(request, "all_slides.html", data)
 
 #######################
 # REFRESH COMMENTS #
 ######################
-def update_comments(request):
-    pass
-=======
->>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
+#Update comments for the comment section which is open (or which has just been clicked)
+#create ajax call
+def update_comments(request, week_number, day, slide_set, slide_number):
+    comments = Comment.objects.filter(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number).order_by('date')
+    data = {'comments': comments}
+    return render(request, "update_comments.html", data)

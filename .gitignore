@@ -8,4 +8,5 @@ local_settings.py
 .idea/
 last.commit
 gunicorn.pid
-deploy/
+htmlcov
+

@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             name='Attachment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('file', models.ImageField(null=True, upload_to=b'media/comment_attachment', blank=True)),
+                ('file', models.FileField(null=True, upload_to=b'media/comment_attachment', blank=True)),
                 ('uuid', models.CharField(max_length=255)),
             ],
             options={
@@ -65,19 +65,47 @@ class Migration(migrations.Migration):
                 ('text', models.TextField()),
                 ('date', models.DateTimeField(auto_now_add=True)),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Slide',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+>>>>>>> 3df0dd3c1f6a1d97da3ac75855aeb43aa748a463
                 ('week_number', models.IntegerField()),
                 ('day', models.CharField(max_length=5)),
                 ('slide_set', models.IntegerField()),
                 ('slide_number', models.IntegerField()),
+<<<<<<< HEAD
 =======
 >>>>>>> 9c229482c3db6da2a0e64378b2eaa028acd67e3e
                 ('user', models.ForeignKey(related_name='comments', to=settings.AUTH_USER_MODEL)),
+=======
+                ('slide_header', models.CharField(max_length=255)),
+>>>>>>> 3df0dd3c1f6a1d97da3ac75855aeb43aa748a463
             ],
             options={
             },
             bases=(models.Model,),
         ),
 <<<<<<< HEAD
+        migrations.AddField(
+            model_name='comment',
+            name='slide',
+            field=models.ForeignKey(related_name='comments', to='slides.Slide'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='comment',
+            name='user',
+            field=models.ForeignKey(related_name='comments', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
         migrations.AddField(
             model_name='attachment',
             name='comment',

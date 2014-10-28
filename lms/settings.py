@@ -90,6 +90,8 @@ USE_TZ = True
 
 
 AUTH_USER_MODEL = 'slides.User'
+LOGIN_REDIRECT_URL = 'slides_home'
+LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

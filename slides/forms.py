@@ -38,13 +38,13 @@ class UserForm(UserCreationForm):
         username = self.cleaned_data["username"]
         try:
 <<<<<<< HEAD
+<<<<<<< HEAD
             print "in try"
+=======
+>>>>>>> 3df0dd3c1f6a1d97da3ac75855aeb43aa748a463
             User.objects.get(username=username)
-            print "leaving try"
         except User.DoesNotExist:
-            print "in except"
             return username
-        print "entering raise?"
         raise ValidationError(
 =======
             User.objects.get(username=username)
