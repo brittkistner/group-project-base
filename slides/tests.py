@@ -30,7 +30,6 @@ class ViewTestCase(TestCase):
 
         response = self.client.post(reverse('register'), data)
 
-
         # Check this user was created in the database
         self.assertTrue(User.objects.filter(username=username).exists())
 
@@ -38,6 +37,8 @@ class ViewTestCase(TestCase):
         self.assertIsInstance(response, HttpResponseRedirect)
 
         self.assertTrue(response.get('location').endswith(reverse('slides_home')))
+
+
 
 
     def test_login_page(self):
@@ -49,15 +50,34 @@ class ViewTestCase(TestCase):
         }
         self.client.post(reverse('login'), data)
 
-    def test_edit_profile_page(self):
-        pass
-        # user = UserFactory.create_batch(1)[0]
-        #
-        # data = {
-        #     'username': 'new-user',
-        # }
-        #
-        # response = self.client.post(reverse('register'), data)
+    def test_edit_account_page(self):
+        username = 'new-user'
+        data_create = {
+            'username': username,
+            'email': 'test@test.com',
+            'name': 'new-user',
+            'password1': 'test',
+            'password2': 'test',
+            'image': ''
+        }
+
+        response = self.client.post(reverse('register'), data_create)
+
+        # Check this user was created in the database
+        self.assertTrue(User.objects.filter(username=username).exists())
+
+        data_edit = {
+            'username':'test'
+        }
+
+        response = self.client.post(reverse('edit_profile'), data_edit)
+
+        # Check the changes were made in the database
+        self.assertTrue(User.objects.filter(username='test').exists())
+
+        # Check it's a redirect to the profile page
+        # self.assertIsInstance(response, HttpResponseRedirect)
+        # self.assertTrue(response.get('location').endswith(reverse('profile')))
 
 
     def test_create_attachemnt(self):
@@ -111,7 +131,7 @@ class ModelTestCase(TestCase):
             slide_number='1',
         )
         self.attachment = Attachment.objects.create(
-            file='',
+            file='media/comment_attachment/hello_world.jpg',
             uuid='abcd',
             comment=self.comment,
         )
@@ -119,6 +139,6 @@ class ModelTestCase(TestCase):
     def test_user_unicode(self):
         self.assertEqual(self.user.__unicode__(), 'user1')
 
-    def test_comment_unicode(self):
-        self.assertEqual(self.comment.__unicode__(), 'slide from week1/5_am/#/2/1')
+    # def test_attachement_unicode(self):
+    #     self.assertEqual(self.comment.__unicode__(), 'hello_world.jpg')
 
