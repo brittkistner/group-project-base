@@ -66,70 +66,56 @@
                                 <!-------< Top of resource/comment navigation >------>
                                     <span id="overall-comments">
                                         Resources
-                                        <button type="button" class="btn btn-default">Add +</button>
+                                        <button type="button" class="btn btn-default" id="btn">Add +</button>
                                     </span>
                             </div>
                             <hr>
                             <!-------< Comments with resources >------->
                             <div id="comment-block">
-                                <div id="single-comment">
-                                    <p>Here is some text</p>
-                                </div>
+
+                                <div class="accordion">
+
+                                <dt><a href="">Panel 1</a></dt>
+                                <dd>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</dd>
                                 <hr>
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
+                                <dt><a href="">Panel 2</a></dt>
+                                <dd>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</dd>
                                 <hr>
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
+                                <dt><a href="">Panel 3</a></dt>
+                                <dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</dd>
                                 <hr>
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-                                <hr>
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>Here is some text</p>
-                                </div>
-
-                                <div>
-                                    <p>1 - 1 Getting started</p>
-                                </div>
-
-                                <div>
-                                    <p>1 - 2 Using Django framework</p>
-                                </div>
-
-                                <div>
-                                    <p>1 - 3 Learning Python</p>
-                                </div>
-
-                                <div>
-                                    <p>1 - 4 Live coding</p>
                                 </div>
 
                             </div>
                         </div>
+
+{#                        <div class="col-3" id="right-nav">#}
+{#                            <div class="row" id="resources">#}
+{##}
+{#                                <!-------< Top of resource/comment navigation >------>#}
+{#                                    <span id="overall-comments" class="add-a-resource">#}
+{#                                        Add a resource#}
+{#                                        <button type="button" class="btn btn-default" id="btn">Cancel</button>#}
+{#                                    </span>#}
+{#                            </div>#}
+{#                            <hr>#}
+{#                            <!-------< Comments with resources >------->#}
+{#                            <div id="resource-field">#}
+{##}
+{#                                <textarea placeholder="Add your files here..." name="resources" id="resource-area" cols="30" rows="10"></textarea>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="drag-file">#}
+{#                                <h4 id="drag">Drag Files Here</h4>#}
+{#                            </div>#}
+{##}
+{#                            <hr class="line">#}
+{##}
+{#                            <div class="save-button">#}
+{#                                <button type="button" class="btn btn-default" id="save">Save</button>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                 </div>
 
@@ -143,6 +129,7 @@
 
     <script src="{% static "js/head.min.js" %}"></script>
     <script src="{% static "js/reveal.js" %}"></script>
+    <script src="{% static "js/comments.js" %}"></script>
 
     <script>
 
