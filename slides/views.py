@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from slides.forms import UserForm, CommmentForm
 import uuid
-from slides.models import Comment, Attachment, Slide
+from slides.models import Comment, Attachment, Slide, User
 
 ###############
 # REGISTRATION #
@@ -47,14 +47,15 @@ def profile(request):
 ################
 
 def edit_profile(request):
+    editable_userobject = User.objects.get(pk=request.user)
     if request.method == "POST":
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
         # pass in request.files
         # User.objets.filter(pk=request.user.id).update(pass in all fields, field=???)
         form = UserForm(request.POST, request.FILES, instance=request.user)
-        user = form.save(commit=False)
-        user.save()
+        if form.is_valid():
+            editable_userobject.save()
         return redirect("profile")
     else:
         # We prefill the form by passing 'instance', which is the specific
@@ -135,7 +136,7 @@ def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number
 ######################
 #Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
 #create ajax call
-def get_comment(request, week_number, day):
+def get_slides(request, week_number, day):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
     slides = Slide.objects.filter(week_number=week_number, day=day).order_by('slide_set','slide_number', 'date')
     data = {'slides': slides}

@@ -20,13 +20,13 @@ urlpatterns = patterns('',
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     'django.contrib.auth.views.password_reset_confirm',
     name='password_reset_confirm'),
+
     #PROFILE
     url(r'^profile/$', 'slides.views.profile', name='profile'),
     url(r'^profile/edit/$', 'slides.views.edit_profile', name='edit_profile'),
 
-    # CREATE COMMENT
-    # url(r'^create_comment/week(?P<week_number>\d+)/(?P<day>\w+)/#/(?P<slide_set>\d+)/(?P<slide_number>\d+)', 'slides.views.create_comment', name="create_comment"),
-    url(r'^create_comment/$', 'slides.views.create_comment', name="create_comment"),
+    # FETCH SLIDES & RESOURCES
+    url(r'^get_slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"),
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),
