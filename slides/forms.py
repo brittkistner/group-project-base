@@ -25,13 +25,9 @@ class UserForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data["username"]
         try:
-            print "in try"
             User.objects.get(username=username)
-            print "leaving try"
         except User.DoesNotExist:
-            print "in except"
             return username
-        print "entering raise?"
         raise ValidationError(
             self.error_messages['duplicate_username'],
             code='duplicate_username',
