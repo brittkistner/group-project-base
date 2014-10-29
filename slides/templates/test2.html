@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title></title>
+
+    <meta name="author" content="Yeti LLC">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/static/css/reveal.min.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '/static/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="/static/css/zenburn.css">
+
+    <link rel="stylesheet/less" type="text/css" media="all" href="/static/less/style.less" />
+    <script>
+        less = {
+            logLevel: 0
+        }
+    </script>
+    <script src="/static/js/less-1.7.0.min.js"></script>
+
+    <script src="/static/js/jquery-1.11.1.js"></script>
+</head>
+
+<body class="">
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <div id="runningTitle">
+                <div class="col-7">
+                    <a href="#"></a>
+                </div>
+                <div class="col-5">
+                    <a href="/" id="rocketULogo"><img class="pull-right" src="/static/img/rocketu-logo-dark.png"></a>
+                </div>
+            </div>
+
+
+                <section class="titleSlide" data-background="#168eae">
+                    <h1>
+    File Manipulation
+</h1>
+                    <a id="yetiLogo" href="http://www.yetihq.com/"><img src="/static/img/yeti-power.png"></a>
+                </section>
+
+
+<section>
+    <h2>Brief Python History</h2>
+    <p>Python is a scripting language, which means at its core it has a bunch of functionality built in for operations like file manipulation.</p>
+    <ul>
+        <li>Python was created by Guido van Rossum, Benevolant Dictator for Life (BDFL), in the late 1980's.</li>
+        <li>Python has released major versions 1, 2, and 3</li>
+        <li>Version 3 of python had some backwards incompatible changes with version 2, so they also created 2.6 and 2.7.</li>
+        <li>Many people still use python 2.7 over 3, especially because major operating systems have not converted over yet.</li>
+        <li>The community is still slowly making the transition from python 2 to 3 even though 3 was released in December 2008.</li>
+        <li>2.7 will be the last release in the version 2 line, it was released in July 2010.</li>
+    </ul>
+</section>
+
+<section>
+    <section>
+        <h2>Directories and Files</h2>
+        <p>Python has a library called <code>os</code> which contains scripting utility functions.</p>
+        <div class="col-4">
+            <ul>
+                <li class="fragment" data-fragment-index="0">First let's try out getting the name of the current directory in with <code>os.getcwd()</code>.<br><br><br></li>
+                <li class="fragment" data-fragment-index="2">Then let's make a new directory using <code>os.mkdir</code>.<br><br><br></li>
+                <li class="fragment" data-fragment-index="4">Now we'll change directory into the new directory we just created using <code>os.chdir</code><br><br></li>
+                <li class="fragment" data-fragment-index="6">Finally, let's check to make sure we're now in that new directory we created.<br><br></li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="1">
+                <pre><code class="python">import os
+
+print os.getcwd()</code></pre>
+            </div>
+            <br>
+            <div class="fragment" data-fragment-index="3">
+                <pre><code class="python">
+os.mkdir("mydirectory")
+                </code></pre>
+            </div>
+            <br>
+            <div class="fragment" data-fragment-index="5">
+                <pre><code class="python">
+os.chdir("mydirectory")
+                </code></pre>
+            </div>
+            <br>
+            <div class="fragment" data-fragment-index="7">
+                <pre><code class="python">
+print os.getcwd()
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Do it Yourself</h2>
+        <ul>
+            <li>Create a function, <code>create_directories</code> that takes in a list of directory names and creates a new directory for each in the list.</li>
+            <li>Create another function, <code>create_nested_directories</code>, which takes in a list of directory names and creates each new directory inside of the last one.</li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Reading a File</h2>
+        <div class="col-4">
+            <ul>
+                <li class="fragment" data-fragment-index="0">First, let's create a text file in your folder using a text editor called <code>hello_world.txt</code>.</li>
+                <li class="fragment" data-fragment-index="2">Put these two lines in your text file.</li>
+                <li class="fragment" data-fragment-index="3">Let's open this file with our python, you'll notice we use a function called <code>open</code>. We pass it 'r' to read this file.</li>
+                <li class="fragment" data-fragment-index="5">We can use the <code>read</code> function to specify how many characters we'd like to read from the file or just get the whole file as a string.</li>
+                <li class="fragment" data-fragment-index="7">We can use <code>readline()</code> or <code>readlines()</code> to get one line at a time or a list of all lines.</li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="1">
+                <pre>
+
+Hello world!
+Hello universe!
+                </pre>
+            </div>
+            <br><br>
+            <div class="fragment" data-fragment-index="4">
+                <pre><code class="python">
+file = open('hello_world.txt', 'r')
+file.read(5)  # returns hello
+file.read()   # returns the whole file as a string
+                </code></pre>
+            </div>
+            <br><br>
+            <div class="fragment" data-fragment-index="6">
+                <pre><code class="python">
+file = open('hello_world.txt', 'r')
+file.readline()   # returns 'Hello world!\n'
+file.readlines()  # returns ['Hello world!\n', 'Hello universe!\n']
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Reading a File (Cont.)</h2>
+        <div class="col-4">
+            <ul>
+                <li class="fragment" data-fragment-index="0">When reading through a file, it is most common to loop over every line and do something appropriately with that line.</li>
+                <li class="fragment" data-fragment-index="1">This logically makes sense, and is usually more efficient than reading in every line of a file at a time.</li>
+                <li class="fragment" data-fragment-index="3">Our <code>file</code> object is also iterable, so we can just loop over every line it.</li>
+                <li class="fragment" data-fragment-index="4">We can then manipulate that line, however we would like to.</li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="2">
+                <pre><code class="python">
+file = open('hello_world.txt', 'r')
+for line in file:
+    print line
+
+# Returns
+# Hello world!
+
+# Hello universe!
+                </code></pre>
+            </div>
+            <br><br>
+            <div class="fragment" data-fragment-index="5">
+                <pre><code class="python">
+file = open('hello_world.txt', 'r')
+for line in file:
+    print line.upper()
+
+# Returns
+# HELLO WORLD!
+
+# HELLO UNIVERSE!
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Do it Yourself</h2>
+        <p>Let's create a function <code>find_words</code>, which takes in the path to a file, reads that file and returns a list of every word in the file.</p>
+        <ul>
+            <li>We can 'find' words by just looking for whitespace in the lines of the text file.</li>
+            <li>At first, the result of the function will be ['Hello', 'world!\n', 'Hello', 'universe!\n']</li>
+            <li>If you finish, try to also remove any punctuation or newline characters and have no duplicate words.</li>
+            <li>Create new text files for testing out your function!</li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Writing a File</h2>
+        <div class="col-4">
+            <ul>
+                <li class="fragment" data-fragment-index="0">This time we <code>open</code> the file but instead we use <code>w</code> so we can write to it.</li>
+                <li class="fragment" data-fragment-index="2">We use <code>write</code> to print to the file. Notice we use <code>\n</code> to create newlines in the file.</li>
+                <li class="fragment" data-fragment-index="3">When we're done we need to <code>close</code> the file.</li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="1">
+                <pre><code class="python">
+file = open('hello_world.txt', 'w')
+file.write('Hello world!\n')
+file.write('Hello universe!\n')
+file.close()
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Writing a File (Cont.)</h2>
+        <div class="col-4">
+            <br>
+            <ul>
+                <li class="fragment" data-fragment-index="0">Let's say we have a list of lines we'd like to write to a file.<br><br><br><br><br></li>
+                <li class="fragment" data-fragment-index="2">We can loop over each line and write them to the file.<br><br><br><br><br></li>
+                <li class="fragment" data-fragment-index="4">We could also just use <code>writelines</code> which will write a list of strings to a file.</li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="1">
+                <pre><code class="python">lines = [
+    'First line\n',
+    'Second line\n',
+    'Third line\n'
+]</code></pre>
+            </div>
+            <br>
+            <div class="fragment" data-fragment-index="3">
+                <pre><code class="python">
+file = open('script.txt', 'w')
+for line in lines:
+    file.write(line)
+file.close()
+                </code></pre>
+            </div>
+            <br>
+            <div class="fragment" data-fragment-index="5">
+                <pre><code class="python">
+file = open('script.txt', 'w')
+file.writelines(lines)
+file.close()
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Context Manager</h2>
+        <p>Opening our file and closing it is a very common task. Python's created a context manager to handle this automatically for us.</p>
+        <p>Context managers are also know as "with" statements and are written as <code>with x as y</code>.</p>
+        <p>They are used to run certain functions before and after a block of code.</p>
+        <br><br>
+        <div class="col-4">
+            <ul>
+                <li class="fragment" data-fragment-index="0">Here's how we'd rewrite our file writing examples.</li>
+                <li class="fragment" data-fragment-index="2">The "with" statement takes care of closing our file after this block of code has finished.</li>
+                <li class="fragment" data-fragment-index="3">This also is less code and much cleaner!</li>
+            </ul>
+        </div>
+        <div class="col-7 col-offset-1">
+            <div class="fragment" data-fragment-index="1">
+                <pre><code>
+with open('script.txt', 'w') as file:
+    file.writelines(lines)
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Do it Yourself</h2>
+        <p>Let's try to read in a file, manipulate it, and write it back out to a new file.</p>
+        <p>The task is to take in a file, and write everything in it out to a new file, while reversing the order of every word on each line.</p>
+        <div class="col-4"><pre>
+
+This is an example text file.
+It should have its order reversed.
+        </pre></div>
+        <p style="clear:both;"><br>Will become</p>
+        <div class="col-4"><pre>
+
+file. text example an is This
+reversed. order its have should It
+        </pre></div>
+        <p style="clear:both"><br>For bonus, place the periods at the end of the line and capitalize on the first word of each line.</p>
+        <div class="col-4"><pre>
+
+File text example an is this.
+Reversed order its have should it.
+        </pre></div>
+    </section>
+</section>
+
+
+
+            <div class="footer">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/static/js/head.min.js"></script>
+    <script src="/static/js/reveal.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 1170,
+            height: 750,
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            slideNumber: true,
+
+			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '/static/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '/static/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '/static/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+    <script src="/static/js/slides.js"></script>
+
+</body>
+</html>

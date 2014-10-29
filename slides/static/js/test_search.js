@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     $.ajax({
         type: 'GET',
-        dataType: "jsonp",
-        url: "http://ec2-54-191-44-247.us-west-2.compute.amazonaws.com/week1/1/",
+        dataType: "html",
+        url: "http://127.0.0.1:8000/week2/1_am/#/2/1",
 
         success: function (data) {
             // var i = 1;

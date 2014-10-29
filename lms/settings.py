@@ -26,8 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -105,4 +103,3 @@ try:
 except ImportError:
     pass
 
-print MEDIA_URL

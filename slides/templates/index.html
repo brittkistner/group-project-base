@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-{% extends "base.html" %}
+{% extends "table_of_contents_base.html" %}
 {% load staticfiles i18n %}
 
 {% block running_title %}
@@ -7,6 +6,12 @@
 {% endblock %}
 
 {% block slides %}
+    <script src="{% static "js/test_search.js" %}"></script>
+    <style>
+#hiddenDiv {
+    visibility: hidden;
+}
+</style>
 <section>
 <h3>All Weeks</h3>
     <hr>
@@ -52,4 +57,5 @@
         </dl>
     </div>
 </section>
+    <div id="hiddenDiv">Test</div>
 {% endblock slides %}

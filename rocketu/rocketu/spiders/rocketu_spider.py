@@ -1,3 +1,4 @@
+import urllib2
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import Rule
 from scrapy.spider import BaseSpider
@@ -14,8 +15,8 @@ class RocketUSpider(BaseSpider):
     name = "rocketu"
     allowed_domains = ["http://127.0.0.1:8000/"]
     start_urls = [
-        "http://127.0.0.1:8000/week2/1_am/#/",
         "http://127.0.0.1:8000/week1/1/",
+        "http://127.0.0.1:8000/week2/1_am/",
         "http://127.0.0.1:8000/week3/1_am/"
     ]
     rules = [
@@ -25,28 +26,70 @@ class RocketUSpider(BaseSpider):
     def parse(self, response):
 
         filename = response.url.split("/")[3]
-        hxs = HtmlXPathSelector(response)
-        divs = hxs.select('//div')
-        sections = divs.select('//section').extract()
-        for each in sections:
-            soup = BeautifulSoup(each)
-            #elements = soup.findAll("section".split())
-            sections = soup.find_all('section')
-            for each in sections: #iterate over loop [above sections]
-           # print len(elements),'sublength'
-                if each.find('section'):
-                    continue
-                else:
-                    print each.prettify()
-            #arylen = soup.findAll('section')
-            #print arylen,'length of section'
-           # res = re.search("    </section>", each)
-            if len(elements ) > 1:
-                for element in elements:
-                    if len(element) > 1:
-                        for subelement in element:
-                            print subelement,'element'
-                # for i in xrange(1,len(arylen)):
+        # hxs = HtmlXPathSelector(response)
+        # divs = hxs.select('//div')
+        # sections = divs.select('//section').extract()
+        # print len(sections)
+        source = urllib2.urlopen(response.url).read()
+        soup = BeautifulSoup(source)
+        sections = soup.findAll('section',recursive=1)
+        i=1
+        for section in sections:
+            test = section.find_all('section')
+            print len(test),'lengthtest'
+            print section,'this_i=',i
+            i+=1
+        page_number = 0
+        page_down = 0
+        # for each in sections: #iterate over loop [above sections]
+        #     if each.find('section'):
+        #        # print cur
+        #         # print page_down,'page_down'
+        #         # print page_number,'page_number'
+        #         # print each.findNext('section') , 'cur'
+        #         # page_down+=1
+        #         continue
+        #     else :
+        #     #if len(each)==1:
+        #         print page_number,'page_number'
+        #         print each,'nocur'
+        #         page_number+=1
+        #     #page_number+=1
+
+
+        #     #print each,'each'
+        # for each in sections:
+        #     soup = BeautifulSoup(each)
+        #     elements = soup.find_all("section")
+        #     #elements = soup.find_all('section')
+        #    # for each in sections: #iterate over loop [above sections]
+        #    # print len(elements),'sublength'
+        #    #      if each.find('section'):
+        #    #          sub =
+        #    #          print subelement,'element'
+        #    #      else:
+        #    #          print each.prettify()
+        #     #arylen = soup.findAll('section')
+        #     #print arylen,'length of section'
+        #    # res = re.search("    </section>", each)
+        #     if len(each) > 1:
+        #         for element in elements:
+        #             # for sub in element:
+        #             print element,'element'
+        #             # subelement = element.find_all('section')
+        #         # if len(element) > 1:
+        #         #     for subelement in element:
+        #
+        #     else:
+        #         item = RocketuItem()
+        #         item['html_content'] = each
+        #         # title = each.select('//h2')
+        #         # print title,'page title'
+        #         # item['title'] = title
+        #         print each
+        #         yield item
+
+            # for i in xrange(1,len(arylen)):
                 #     subsection = soup.findNext('section')
                 #     print subsection
                 #     print "\n"
@@ -54,14 +97,7 @@ class RocketUSpider(BaseSpider):
                 # subs = divs.select('//section')
                 # for sub in subs:
                 #     print sub.extract()
-            else:
-                item = RocketuItem()
-                item['html_content'] = each
-                # title = each.select('//h2')
-                # print title,'page title'
-                # item['title'] = title
-                print each
-                yield item
+
         #     if len(each) > 1:
         #         for subsection in each:
         #             print subsection.extract()
