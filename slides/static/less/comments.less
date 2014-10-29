@@ -1,0 +1,74 @@
+@left-divider: #C7C7C7;
+@horizontal-line: #EBEBEB;
+
+#right-nav div {
+    margin-left: 2%;
+
+}
+
+#right-nav {
+
+  border-left: 3px solid @left-divider;
+  // top right bottom left
+  margin: -20px 0  0 3%;
+
+  // Push the divider to the way to the top but pull the text back down
+  padding-top: 20px;
+
+  // This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page
+  height: 750px;
+  width: 375px;
+
+
+}
+
+#comment-block {
+
+  height: 750px;
+  overflow-y: auto;
+
+  // Extend the line to the divider but bring the text back in
+  margin: -10px -30px 0 -30px !important;
+  padding: 0 30px 0 30px;
+  div {
+    // top right bottom left
+    width: 80%;
+    font-size: 18px;
+    color: darkgrey;
+  }
+
+}
+
+#resources {
+  margin-top: 0;
+  margin-bottom: -15px;
+
+
+  button {
+      position: relative;
+      float: right;
+  }
+  font-family: 'ProximaNova-Bold';
+}
+
+
+#single-comment {
+
+//    font-size: 12px;
+  font-size: 15px;
+  overflow: visible;
+  border-bottom: lightgrey;
+}
+
+#runningTitle {
+  margin-left: 1%;
+}
+
+.reveal .slides > section, .reveal .slides > section > section {
+  margin-left: 1%;
+  width: 68%
+}
+
+.accordion {
+  font-size: 15px;
+}
