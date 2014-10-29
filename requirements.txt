@@ -12,26 +12,20 @@ Whoosh==2.6.0
 ansible==1.7.2
 argparse==1.2.1
 boto==2.34.0
-<<<<<<< HEAD
 cffi==0.8.6
 cryptography==0.6.1
 cssselect==0.9.1
-=======
 coverage==3.7.1
->>>>>>> 24ea56b98701ebc8cf327194fc0e35970e63b2f6
 django-boto==0.3.8
 django-crispy-forms==1.4.0
 django-haystack==2.3.1
 django-ipware==0.1.0
 django-storages==1.1.8
 ecdsa==0.10
-<<<<<<< HEAD
 haystack==0.15
 haystack-static-pages==0.2.1alpha
 lxml==3.4.0
-=======
 factory-boy==2.4.1
->>>>>>> 24ea56b98701ebc8cf327194fc0e35970e63b2f6
 newrelic==2.34.0.29
 paramiko==1.12.2
 pep8==1.5.7
@@ -39,15 +33,12 @@ psycopg2==2.5.4
 pyOpenSSL==0.14
 pycparser==2.10
 pycrypto==2.6.1
-<<<<<<< HEAD
 pyes==0.99.5
 python-ptrace==0.8
 queuelib==1.2.2
 raven==5.1.1
 requests==2.2.1
-=======
 pyflakes==0.8.1
->>>>>>> 24ea56b98701ebc8cf327194fc0e35970e63b2f6
 simplejson==3.3.3
 six==1.8.0
 stevedore==0.15
