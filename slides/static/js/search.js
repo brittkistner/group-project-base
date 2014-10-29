@@ -9,7 +9,7 @@ $(document).ready(function () {
        var $allweeks = $('#all-weeks');
         $('.accordion').slideUp('step');
         $allweeks.children(':last').slideToggle();
-        $allweeks.append('<input type="search" id="search-box" placeholder="Enter search term here">');
+        $allweeks.append('<input type="search" id="search-box" placeholder="Search">');
     });
 
     $('#search-box').click(function() {
@@ -32,8 +32,13 @@ $(document).ready(function () {
         });
     });
 
-
-
-
-
 });
+
+$(document).ready(function () {
+
+// Make buttons appear on click (not finished)
+    $('#search').click(function () {
+        document.getElementById('bt1').style.display = "block";
+    })
+
+})
