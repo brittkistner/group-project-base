@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title></title>
+
+    <meta name="author" content="Yeti LLC">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/static/css/reveal.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '/static/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="/static/css/zenburn.css">
+
+    <link rel="stylesheet/less" type="text/css" media="all" href="/static/less/style.less" />
+    <link rel="stylesheet/less" type='text/css' href="/static/css/comments.less">
+    <script>
+        less = {
+            logLevel: 0
+        }
+    </script>
+    <script src="/static/js/less-1.7.0.min.js"></script>
+
+    <script src="/static/js/jquery-1.11.1.js"></script>
+</head>
+
+<body class="">
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <div id="runningTitle">
+                <div class="col-7">
+                    <a href="#">
+    Basic Django App
+</a>
+                </div>
+                <div class="col-5">
+                    <a href="/" id="rocketULogo"><img class="pull-right" src="/static/img/rocketu-logo-dark.png"></a>
+
+                </div>
+            </div>
+
+            
+                <section class="titleSlide" data-background="#168eae">
+                    <h1>
+    Basic Django App: Edit & Delete
+</h1>
+                    <a id="yetiLogo" href="http://www.yetihq.com/"><img src="/static/img/yeti-power.png"></a>
+                </section>
+            
+
+            
+<section>
+    <h2>Laying out our application</h2>
+    <p>Our Django app will have this site map. This basic layout can be found in many applications.</p>
+    <img src="/static/img/hollywood_site_map.png">
+</section>
+
+<section>
+    <section>
+        <h2>Editing existing records</h2>
+        <p>Editing an existing object is a bit of a combination of the create view and the detail view -- you need a form to edit and process, but you are also finding an existing record.</p>
+        <p>Let's start by adding our route.</p>
+        <pre><code>
+urlpatterns = patterns('',
+    ##
+    url(r'^genres/(?P&lt;genre_id>\w+)/edit/$', 'hollywood.views.edit_genre', name='edit_genre'),
+)
+        </code></pre>
+    </section>
+    <section>
+        <h2>Editing existing records</h2>
+        <pre><code>
+def edit_genre(request, genre_id):
+    # Similar to the the detail view, we have to find the existing genre we are editing
+    genre = Genre.objects.get(id=genre_id)
+
+    # We still check to see if we are submitting the form
+    if request.method == "POST":
+        # We prefill the form by passing 'instance', which is the specific
+        # object we are editing
+        form = GenreForm(request.POST, instance=genre)
+        if form.is_valid():
+            if form.save():
+                return redirect("/genres/{}".format(genre_id))
+
+    # Or just viewing the form
+    else:
+        # We prefill the form by passing 'instance', which is the specific
+        # object we are editing
+        form = GenreForm(instance=genre)
+    data = {"genre": genre, "form": form}
+    return render(request, "genres/edit_genre.html", data)
+        </code></pre>
+    </section>
+    <section>
+        <h2>Editing existing records</h2>
+        <div>
+            <div class="col-3">
+                <p>Our edit template looks almost identical to our create template because it has the form, but when you actually load the page, the form will be prefilled.</p>
+            </div>
+            <div class="col-8 col-offset-1">
+                <h4>edit_genre.html</h4>
+                <pre><code>
+<h1>Edit genre &#123;{ genre.name }}</h1>
+<form method="post">
+    &#123;% csrf_token %}
+    &#123;{ form }}
+    <input type="submit" value="Update genre" />
+</form>
+                </code></pre>
+            </div>
+        </div>
+        <div class="fragment">
+            <div class="col-3">
+                <p>Let's also update our detail view so that it's easy to edit a record we are looking at.</p>
+            </div>
+            <div class="col-8 col-offset-1">
+                <h4>view_genre.html</h4>
+                <pre><code>
+<h1>&#123;{ genre.name }}</h1>
+&lt;a href="&#123;% url "edit_genre" genre.id %}">Edit genre&lt;/a>
+&lt;br>
+&lt;a href="&#123;% url "home" %}">Back to Hollywood&lt;/a>
+&lt;a href="&#123;% url "genres" %}">Back to Genres&lt;/a>
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Do it yourself</h2>
+        <p>Add edit functionality for movies and actors.</p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Deleting records</h2>
+        <p>Last but not least, we want to be able to delete records as well.</p>
+        <h4>urls.py</h4>
+        <pre><code>
+urlpatterns = patterns('',
+    ##
+    url(r'^genres/(?P&lt;genre_id>\w+)/delete/$', 'hollywood.views.delete_genre', name='delete_genre'),
+)
+        </code></pre>
+        <p>This should be starting to look quite repetitive -- that's a good thing.</p>
+    </section>
+    <section>
+        <h2>Deleting records</h2>
+        <div>
+            <div class="col-4">
+                <p>Deleting works a little differently. We don't actually need to go to a page to delete an object, we can simply delete the object in the view, and then redirect the user to the index page.</p>
+            </div>
+            <div class="col-7 col-offset-1">
+                <h4>views.py</h4>
+                <pre><code>
+def delete_genre(request, genre_id):
+    genre = Genre.objects.get(id=genre_id)
+    genre.delete()
+    return redirect("/genres")
+                </code></pre>
+            </div>
+        </div>
+        <div class="fragment">
+            <div class="col-4">
+                <p>As we did with edit, let's update the detail template so we can easily access the delete action.</p>
+            </div>
+            <div class="col-7 col-offset-1">
+                <h4>view_genre.html</h4>
+                <pre><code>
+<h1>&#123;{ genre.name }}</h1>
+&lt;a href="&#123;% url "edit_genre" genre.id %}">Edit genre&lt;/a>
+&lt;a href="&#123;% url "delete_genre" genre.id %}">Delete genre&lt;/a>
+&lt;br>
+&lt;a href="&#123;% url "home" %}">Back to Hollywood&lt;/a>
+&lt;a href="&#123;% url "genres" %}">Back to Genres&lt;/a>
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Do it yourself</h2>
+        <p>Guess what? Add delete functionality for actors and movies!</p>
+    </section>
+</section>
+
+<section>
+    <h2>Recap: Basic Django app</h2>
+    <p>Congratulations! You made a Django project. It's simple, but captures the functionality that powers most applications you use on the web and in mobile apps.</p>
+    <p>You'll start to notice routes just like the ones you created all over the web.</p>
+    <h4>urls.py</h4>
+    <pre><code>
+urlpatterns = patterns('',
+    url(r'^genres/$', 'hollywood.views.genres', name='genres'),
+    url(r'^genres/new/$', 'hollywood.views.new_genre', name='new_genre'),
+    url(r'^genres/(?P&lt;genre_id>\w+)/$', 'hollywood.views.view_genre', name='view_genre'),
+    url(r'^genres/(?P&lt;genre_id>\w+)/edit/$', 'hollywood.views.edit_genre', name='edit_genre'),
+    url(r'^genres/(?P&lt;genre_id>\w+)/delete/$', 'hollywood.views.delete_genre', name='delete_genre'),
+)
+    </code></pre>
+</section>
+
+
+            <div class="footer">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/static/js/head.min.js"></script>
+    <script src="/static/js/reveal.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 960,
+            height: 750,
+            margin: 0.1,
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            slideNumber: true,
+
+			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '/static/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '/static/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '/static/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+    <script src="/static/js/slides.js"></script>
+
+</body>
+</html>
