@@ -32,6 +32,22 @@ class UserForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
+class UpdateUserForm(forms.Form):
+    helper = FormHelper()
+    helper.form_method = "POST"
+    helper.form_class = 'form-horizontal'
+    helper.add_input(Submit('Register', 'Register', css_class='btn-default'))
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+        self.fields['image'].label = "Upload a new profile photo"
+        self.fields['name'].label = "Real Name"
+
+
+    class Meta:
+        model = User
+        fields = ("name", "email","image")
+
 
 class CommmentForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)

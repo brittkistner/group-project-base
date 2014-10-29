@@ -1,5 +1,6 @@
 {% for slide in slides %}
     {{ slide.slide_header }}
+    {{ slide.url }}
     {% for comment in slide.comments.all %}
         {{ comment.user.image }}
         {{ comment.user.name }}

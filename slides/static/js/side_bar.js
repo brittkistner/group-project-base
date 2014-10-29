@@ -30,6 +30,8 @@ $(document).ready(function(){
         slideNumber = parseInt(url.split('/')[7]);
     };
 
+
+
 //    var url = '/image/upload/';
 //        $('#fileupload').fileupload({
 //            url: url,

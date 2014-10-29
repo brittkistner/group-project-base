@@ -5,7 +5,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from slides.forms import UserForm, CommmentForm
+from slides.forms import UserForm, CommmentForm, UpdateUserForm
 import uuid
 from slides.models import Comment, Attachment, Slide, User
 
@@ -47,20 +47,22 @@ def profile(request):
 ################
 
 def edit_profile(request):
-    editable_userobject = User.objects.get(pk=request.user)
+    print request.user.name
+    editable_userobject = User.objects.get(pk=request.user.id)
     if request.method == "POST":
-        # We prefill the form by passing 'instance', which is the specific
-        # object we are editing
-        # pass in request.files
-        # User.objets.filter(pk=request.user.id).update(pass in all fields, field=???)
-        form = UserForm(request.POST, request.FILES, instance=request.user)
+        print "in post"
+        form = UpdateUserForm(request.POST, request.FILES, instance=editable_userobject)
         if form.is_valid():
+            print "VALID"
+            # username = form.cleaned_data['username']
+            # name = form.cleaned_data['name']
             editable_userobject.save()
+            # User.objets.filter(pk=request.user.id).update(username=username, name=name)
         return redirect("profile")
     else:
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
-        form = UserForm(instance=request.user)
+        form = UpdateUserForm(instance=request.user)
     data = {"user": request.user, "form": form}
     return render(request, "edit_profile.html", data)
 

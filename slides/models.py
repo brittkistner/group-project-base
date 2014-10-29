@@ -14,15 +14,12 @@ class Slide(models.Model):
     slide_set = models.IntegerField()
     slide_number = models.IntegerField()
     slide_header = models.CharField(max_length=255)
+    url = models.URLField()
 
 class Comment(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, related_name="comments")
     date = models.DateTimeField(auto_now_add=True)
-    # week_number = models.IntegerField()
-    # day = models.CharField(max_length=5)
-    # slide_set = models.IntegerField()
-    # slide_number = models.IntegerField()
     slide = models.ForeignKey(Slide, related_name="comments")
 
     def __unicode__(self):
