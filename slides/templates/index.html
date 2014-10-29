@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 {% extends "table_of_contents_base.html" %}
+=======
+{% extends "base.html" %}
+>>>>>>> 24ea56b98701ebc8cf327194fc0e35970e63b2f6
 {% load staticfiles i18n %}
 
 {% block running_title %}
@@ -13,7 +17,10 @@
 }
 </style>
 <section>
-<h3>All Weeks</h3>
+    <div id="all-weeks">
+        <img class="img-thumbnail" id="search" src="{% static 'img/search.png' %}" />
+        <h2 id="front-search">All Weeks</h2>
+    </div>
     <hr>
     <div class="col-6">
         <dl class="accordion">
