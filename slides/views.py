@@ -154,3 +154,10 @@ def update_comments(request, week_number, day, slide_set, slide_number):
     data = {'comments': comments}
     return render(request, "update_comments.html", data)
 
+
+
+
+
+def test_comment(request):
+    return render(request, "test_comment.html")
+

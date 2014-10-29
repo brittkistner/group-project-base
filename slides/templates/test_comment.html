@@ -1,0 +1,22 @@
+{% load i18n future staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Title of the document</title>
+      <link rel="stylesheet" href="{% static 'css/test_comment.css'%}">
+      <script src="{% static "js/comment_form.js" %}"></script>
+  </head>
+
+  <body>
+      <button id="add_button">Add +</button>
+      <div id="resources_test">
+          Hello World
+      </div>
+      <div id="comment_block_test">
+          Comment Form Here
+      </div>
+  </body>
+
+</html>
