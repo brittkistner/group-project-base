@@ -22,8 +22,9 @@ dt {
   width: 100%;
   height: 20%;
   margin-top: 5%;
-  margin-bottom: -100px;
-  display: block;
+  margin-bottom: -80px;
+  display: inline-block;
+  float: left;
 
   h2 {
 //    margin-top: 3%;
@@ -33,22 +34,26 @@ dt {
     border-bottom: none;
   }
 
-  img {
+
+}
+
+img {
     position: relative;
-    float: right;
+    float: left;
     top: -6%;
     right: 5px;
     // Remove the inherent box shadow
     box-shadow: 0 0 0 0 !important;
-  }
 
-}
+
+  }
 
 #search-box {
   margin-bottom: 5%;
   border: 1px solid white;
   width: 500px;
   font-size: 45px;
+
 }
 
 input:focus {
@@ -56,3 +61,33 @@ input:focus {
   outline: none;
 
 }
+
+//#slide-button {
+//  float: right;
+//  height: 30px;
+//
+//}
+//
+//#resource-button {
+//  height: 30px;
+//  float: right;
+//}
+
+.btn-group {
+  display: inline;
+  float: right;
+
+}
+
+#bt1 {
+  display: none;
+}
+
+button {
+  height: 27px;
+  float: right;
+  padding-top: 10px;
+
+}
+
+
