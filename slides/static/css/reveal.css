@@ -49,11 +49,13 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+
 }
 
 body {
 	position: relative;
 	line-height: 1;
+
 }
 
 ::selection {
@@ -1886,4 +1888,14 @@ body {
 	visibility: hidden;
 }
 
+.reveal p {
+    font-size: 22px;
+}
 
+.reveal li {
+    font-size: 22px;
+}
+
+.reveal h2 {
+    font-size: 40px;
+}
