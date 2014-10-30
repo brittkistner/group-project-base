@@ -28,8 +28,7 @@ urlpatterns = patterns('',
 
     # FETCH SLIDES & RESOURCES
     url(r'^get_slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"),
-    url(r'^create_comment/$', 'slides.views.create_comment', name='create_comment'),
-    url(r'^slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.slides', name="slides"),
+    url(r'^create_comment/week(?P<week_number>\d+)/(?P<day>\w+)/(?P<slide_set>\d+)/(?P<slide_number>\d+)$', 'slides.views.create_comment', name='create_comment'),
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),
@@ -63,7 +62,4 @@ urlpatterns = patterns('',
     url("^week3/lab/$", TemplateView.as_view(template_name="week3/lab.html"), name="week3_lab"),
 )
 
-
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -47,7 +47,7 @@ class UpdateUserForm(forms.Form):
 
     class Meta:
         model = User
-        fields = ("name", "email","image")
+        fields = ("name", "email", "image")
 
 
 class CommentForm(forms.Form):
@@ -57,25 +57,27 @@ class CommentForm(forms.Form):
 
     class Meta:
         model = Comment
-        fields = ("text")
+        fields = ("text",)
 
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
-        #unpack slide info from args, know position
+        #unpack slide info from args array, know position for each thing
+        print args
         if args:
-            self.data['text'] = args[0]['resources']
+            self.data['text'] = args[0]['resources'] #resources = name on text field
             print args[1]
             for attachment in args[1]:
                 unique_id = str(uuid.uuid4())
                 while Attachment.objects.filter(uuid=unique_id).exists():
                     unique_id = str(uuid.uuid4())
-                attachment = Attachment.objects.create(file='', uuid=unique_id) #change file to attachment.file
-                self.attachments.append(attachment)
-            self.slide, created = Slide.objects.get_or_create(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number, slide_header=slide_header, url=url)
+                new_attachment = Attachment.objects.create(file=attachment, uuid=unique_id) #change file to attachment.file?
+                self.attachments.append(new_attachment)
+            self.slide, created = Slide.objects.get_or_create(week_number=args[2], day=args[3], slide_set=args[4], slide_number=args[5], slide_header=args[6], url=args[7])
 
     def save(self, commit=True):
         comment = super(CommentForm, self).save(commit=False)
         comment.slide = self.slide
+        # comment.user = request.user
         for attachment in self.attachments:
             attachment.comment = comment
         if commit:

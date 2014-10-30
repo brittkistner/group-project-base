@@ -1,11 +1,10 @@
 import json
 from django.contrib.auth import authenticate, login
-from django.contrib.comments import CommentForm
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from slides.forms import UserForm, CommmentForm, UpdateUserForm
+from slides.forms import UserForm, UpdateUserForm, CommentForm
 import uuid
 from slides.models import Comment, Attachment, Slide, User
 
@@ -68,60 +67,22 @@ def edit_profile(request):
 
 
 
-########################
-# CREATING ATTACHMENTS #
-#######################
-
-# def create_attachment(attachments, comment):
-#     attachments = []
-#     for attachment in attachments:
-#         unique_id = str(uuid.uuid4())
-#         while Attachment.objects.filter(uuid=unique_id).exists():
-#             unique_id = str(uuid.uuid4())
-#         attachment = Attachment.objects.create(file='', comment=comment, uuid=unique_id) #change file to attachment.file
-#         attachments.append(attachment)
-#     return attachments
-
-###################
-# RESOURCE UPLOAD #
-###################
-
-# def image_upload(request):
-#     response = {'files': []}
-#     # Loop through our files in the files list uploaded
-#     file_info = {}
-#     for file in request.FILES.getlist('files[]'):
-#         file_info[file.name] = file
-#
-#         # Save output for return as JSON
-#         response['files'].append({
-#             'name': '%s' % file.name,
-#             'size': '%d' % file.size,
-#             # 'thumbnailUrl': '%s' % new_image.picture.url,
-#             # 'deleteUrl': '\/image\/delete\/%s' % file.name,
-#             # "deleteType": 'DELETE'
-#         })
-#
-#     return HttpResponse(json.dumps(response), content_type='application/json')
-
 ######################
 # CREATING COMMENTS #
 #####################
 @csrf_exempt
-def create_comment(request, week_number, day, slide_set, slide_number):
-    # pass
+def create_comment(request, week_number, day, slide_set, slide_number, slide_header, url):
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES, week_number, day, slide_set, slide_number)
+        form = CommentForm(request.POST, request.FILES, week_number, day, slide_set, slide_number, slide_header, url)
         if form.is_valid:
         #validate that there is some text or an attachment
-            comment = form.save() #return the comment
+            comment = form.save()
+            comment.user = request.user
+            comment.save()
 
-        #What should this response return.  Using HttpResponse for now
-        response = serializers.serialize('json', [comment])
+        response = serializers.serialize('json', [comment]) #ajax hide form and show resources pane
         return HttpResponse(response, content_type='application/json')
-    return render(request, "comment_form.html", {
-        'form': form,
-    })
+
 
 
 #######################
