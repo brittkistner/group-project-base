@@ -91,10 +91,11 @@ def create_comment(request, week_number, day, slide_set, slide_number):
     if request.method == 'POST':
         # data = json.loads(request.body)
         # print "This is data {}".format(data)
-        data = json.loads(request.POST)
-        print data
+        files = json.loads(request.POST.getlist('files[]')[0])
+        print files
+        print request.POST.getlist('files[]')
+        print request.POST.getlist('files[]')[0][0]
         print request.POST
-        print request.POST.getlist('files')
         form = CommentForm(request.POST, week_number, day, slide_set, slide_number)
         if form.is_valid:
         #validate that there is some text or an attachment
