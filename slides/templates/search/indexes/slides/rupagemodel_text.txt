@@ -1,0 +1,6 @@
+{{ object.title }}
+{{ object.text }}
+{{ object.pub_date }}
+{{ object.page_url }}
+{{ object.page_number }}
+{{ object.page_down }}

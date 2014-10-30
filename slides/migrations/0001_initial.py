@@ -57,6 +57,36 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.TextField()),
                 ('date', models.DateTimeField(auto_now_add=True)),
+                ('slide_set', models.IntegerField(default=0)),
+                ('slide_number', models.IntegerField(default=0)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Note',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=200)),
+                ('body', models.TextField()),
+                ('pub_date', models.DateTimeField()),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='RuPageModel',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=200, null=True, blank=True)),
+                ('text', models.TextField(null=True, blank=True)),
+                ('pub_date', models.DateTimeField(auto_now=True)),
+                ('page_url', models.CharField(max_length=500, null=True, blank=True)),
+                ('page_number', models.CharField(max_length=5, null=True, blank=True)),
+                ('page_down', models.CharField(max_length=5, null=True, blank=True)),
             ],
             options={
             },
@@ -71,6 +101,7 @@ class Migration(migrations.Migration):
                 ('slide_set', models.IntegerField()),
                 ('slide_number', models.IntegerField()),
                 ('slide_header', models.CharField(max_length=255)),
+                ('url', models.URLField(null=True)),
             ],
             options={
             },
