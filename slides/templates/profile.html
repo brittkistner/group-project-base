@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+</head>
+<body>
+
+<div class="container" id="page">
+<div class="logo">
+    <p id="lectures">Registration and Profile</p>
+    <img id="rocket" src="{% static "img/rocketu-logo-dark.png" %}" alt=""/></div>
+
+
+    <p id="editAccount">Welcome, {{ User.name }}</p>
+    <hr>
+
+<div class="wholePage">
+    <div class="profilePic">
+        <div>
+            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
+        </div>
+
+    </div>
+
+{# FORMS  #}
+
+<div class="container">
+
+<h1>Hello {{ User.first_name }}!</h1>
+<p>
+
+</p>
+
+<a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -16,7 +16,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="{% static "css/reveal.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -33,6 +34,7 @@
     <link rel="stylesheet" href="{% static "css/zenburn.css" %}">
 
     <link rel="stylesheet/less" type="text/css" media="all" href="{% static "less/style.less" %}" />
+    <link rel="stylesheet/less" type='text/css' href="{% static 'less/search.less'  %}">
     <script>
         less = {
             logLevel: 0
@@ -41,6 +43,8 @@
     <script src="{% static "js/less-1.7.0.min.js" %}"></script>
 
     <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/side_bar.js' %}"></script>
 </head>
 
 <body class="{% block body_css %}{% endblock body_css %}">
@@ -54,15 +58,17 @@
                 </div>
                 <div class="col-5">
                     <a href="{% url "slides_home" %}" id="rocketULogo"><img class="pull-right" src="{% static "img/rocketu-logo-dark.png" %}"></a>
+
                 </div>
             </div>
 
             {% block title_slide %}
                 <section class="titleSlide" data-background="#168eae">
-                    <h1>{% block presentation_title%}{% endblock %}</h1>
+                    <h1>{% block presentation_title %}{% endblock %}</h1>
                     <a id="yetiLogo" href="http://www.yetihq.com/"><img src="{% static "img/yeti-power.png" %}"></a>
                 </section>
             {% endblock %}
+
             {% block slides %}
             {% endblock %}
 
@@ -81,8 +87,9 @@
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
-            width: 1170,
+            width: 960,
             height: 750,
+            margin: 0.1,
             controls: true,
             progress: true,
             history: true,

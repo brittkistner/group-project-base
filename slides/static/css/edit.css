@@ -1,0 +1,86 @@
+label {
+    color: #5DA8B6;
+    font-size: 14px;
+    display: inline;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+.form-control {
+    width: 50%;
+    border-radius: 1%;
+    height: 40px;
+}
+
+#editAccount {
+    font-size: 28px;
+    font-weight: normal;
+    padding-top: 10px;
+    margin-bottom: -17px;
+    letter-spacing: 1px;
+}
+
+#lectures {
+    color: darkgrey;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    display: inline;
+}
+
+#page {
+    width: 50%;
+}
+
+.picture {
+    border-radius: 100%;
+    width: 65px;
+    height: 65px;
+    margin-left: 28%;
+    margin-bottom: 20px;
+}
+
+.photoText {
+    margin-left: 110px;
+    color: #5DA8B6;
+    letter-spacing: 1px;
+    margin-top: -12px;
+}
+
+.profilePic {
+    margin-bottom: 10px;
+}
+
+hr {
+    border: 1px solid #AAAAAA;
+}
+
+
+.logo {
+    display: inline;
+}
+
+#rocket {
+    width: 100px;
+    height: 32px;
+    margin-left: 60%;
+
+}
+
+form {
+    margin-top: 30px;
+
+}
+
+.wholePage {
+    margin-left: 70px;
+}
+
+body {
+    padding-top: 30px;
+}
+
+#register-body {
+    margin-left: -68px;
+}
+
