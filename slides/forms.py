@@ -64,7 +64,8 @@ class CommentForm(forms.Form):
         #unpack slide info from args array, know position for each thing
         print args
         if args:
-            self.data['text'] = args[0]['resources'] #resources = name on text field
+            self.data['text'] = args[0]
+            # ['resources'] #resources = name on text field
             print args[1]
             for attachment in args[1]:
                 unique_id = str(uuid.uuid4())

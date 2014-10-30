@@ -70,10 +70,29 @@ def edit_profile(request):
 ######################
 # CREATING COMMENTS #
 #####################
+# @csrf_exempt
+# def create_comment(request, week_number, day, slide_set, slide_number, slide_header, url):
+#     if request.method == 'POST':
+#         print request.POST
+#         print request.FILES
+#         form = CommentForm(request.POST, request.FILES, week_number, day, slide_set, slide_number, slide_header, url)
+#         if form.is_valid:
+#         #validate that there is some text or an attachment
+#             comment = form.save()
+#             comment.user = request.user
+#             comment.save()
+#
+#         response = serializers.serialize('json', [comment]) #ajax hide form and show resources pane
+#         return HttpResponse(response, content_type='application/json')
+
 @csrf_exempt
-def create_comment(request, week_number, day, slide_set, slide_number, slide_header, url):
+def create_comment(request, week_number, day, slide_set, slide_number):
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES, week_number, day, slide_set, slide_number, slide_header, url)
+        data = json.loads(request.body)
+        print "This is data {}".format(data)
+        print request.POST
+        print request.POST.getlist('files')
+        form = CommentForm(request.POST, week_number, day, slide_set, slide_number)
         if form.is_valid:
         #validate that there is some text or an attachment
             comment = form.save()
@@ -82,7 +101,6 @@ def create_comment(request, week_number, day, slide_set, slide_number, slide_hea
 
         response = serializers.serialize('json', [comment]) #ajax hide form and show resources pane
         return HttpResponse(response, content_type='application/json')
-
 
 
 #######################

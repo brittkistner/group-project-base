@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{% static 'css/jquery.fileupload.css' %}">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -108,13 +110,14 @@
 
                                 </div>
 
-                                <div class="drag-file">
-                                    <h4 id="drag">Drag Files Here</h4>
-{#                                    <input id="fileupload" type="file" name="files[]" multiple>#}
-                                </div>
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>Add files +</span>
+{#                                <div class="drag-file">#}
+{#                                    <h4 id="drag">Drag Files Here</h4>#}
+{#                                </div>#}
+
+{#                            Drag and Drop html starts here#}
+                            <span class="btn btn-default btn-lg fileinput-button">
+{#                                <i class="glyphicon glyphicon-plus"></i>#}
+                                <span>Drag Files Here</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input id="fileupload" type="file" name="files[]" multiple>
                             </span>
@@ -127,6 +130,8 @@
                             <div id="files" class="files"></div>
 
                             </div>
+                        {#                            Drag and Drop html ends here#}
+
                             <div class="save-button">
                                 <button type="button" class="btn btn-default" id="save">Save</button>
                             </div>

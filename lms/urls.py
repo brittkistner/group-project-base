@@ -27,8 +27,8 @@ urlpatterns = patterns('',
     url(r'^profile/edit/$', 'slides.views.edit_profile', name='edit_profile'),
 
     # FETCH SLIDES & RESOURCES
-    url(r'^get_slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"),
-    url(r'^create_comment/week(?P<week_number>\d+)/(?P<day>\w+)/(?P<slide_set>\d+)/(?P<slide_number>\d+)/(?P<slide_header>\w+)/(?P<url>\w+)$',
+    url(r'^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"), #BK changed this
+    url(r'^create_comment/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\d+)/(?P<slide_number>\d+)/$',
         'slides.views.create_comment', name='create_comment'),
 
     # Week 1 - OO Python

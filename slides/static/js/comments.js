@@ -37,29 +37,47 @@ $(document).ready(function () {
     var review_url = function(path){
        //figure out regex
         url = path;
-        weekNumber = parseInt(path.split('/')[3]);
-        day = path.split('/')[4]; //string
-        slideSet= parseInt(path.split('/')[6]);
-        slideNumber = parseInt(path.split('/')[7]);
+        weekNumber = path.split('/')[1];
+        day = path.split('/')[2]; //string
+        if (path.split('/').length < 5){
+            slideSet = 0;
+            slideNumber = 0;
+        } else if (path.split('/').length < 6){
+            slideSet= parseInt(path.split('/')[4]);
+            slideNumber = 0;
+        } else {
+            slideSet= parseInt(path.split('/')[4]);
+            slideNumber = parseInt(path.split('/')[5]);
+        }
+        console.log(weekNumber, day, slideSet, slideNumber);
     };
 
     var getHeader = function(){
-        headerHtml = $('.present').find('h2');
-        slideHeader = headerHtml[0].firstChild.nodeValue;
+//        headerHtml = $('.present').find('h2');
+//        console.log(headerHtml);
+//        slideHeader = headerHtml[0].firstChild.nodeValue;
+        slideHeader = "Hello World";
     };
 
 
    $('#save').on('click', function(){
        review_url(location.pathname);
        getHeader();
+       console.log('passed review_url and getHeader');
+       console.log(fileData);
        $.ajax({
+           //think about passing the data differently (maybe through data?)
             url: '/create_comment/' + weekNumber + '/'
                 + day + '/' + slideSet + '/'
-                + slideNumber + '/' + slideHeader
-                + '/' + url + '/',
+                + slideNumber + '/',
             type: 'POST',
             dataType: 'json',
-            data: $(this).serialize(), //what should be serialized here?
+            data: {
+                'text': JSON.stringify($('#resource-area').val()),
+                'slide_header': JSON.stringify(slideHeader),
+                'files[]' : fileData,
+                'url' : JSON.stringify(url)
+            },
             success: function(response) {
                 console.log('success');
                 $('#resources1').hide();
@@ -80,8 +98,8 @@ $(document).ready(function () {
         $('#fileupload').fileupload({
             dataType: 'json',
             autoUpload: false,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize: 5000000, // 5 MB
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf)$/i,
+            maxFileSize: 50000000, // 50 MB
             // Enable image resizing, except for Android and Opera,
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
@@ -91,9 +109,8 @@ $(document).ready(function () {
             previewMaxHeight: 100,
             previewCrop: true
         }).on('fileuploadadd', function (e, data) {
-            console.log("I made it");
-            console.log(data.files);
-            fileData.push(data.files);
+            fileData.push(data.files[0]);
+            console.log(data);
             console.log(fileData);
             data.context = $('<div/>').appendTo('#files');
             $.each(data.files, function (index, file) {
