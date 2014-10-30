@@ -28,7 +28,8 @@ urlpatterns = patterns('',
 
     # FETCH SLIDES & RESOURCES
     url(r'^get_slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"),
-    url(r'^test_comment/$', 'slides.views.test_comment', name='test_comment'),
+    url(r'^create_comment/$', 'slides.views.create_comment', name='create_comment'),
+    url(r'^slides/week(?P<week_number>\d+)/(?P<day>\w+)/$', 'slides.views.slides', name="slides"),
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),

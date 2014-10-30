@@ -16,6 +16,12 @@ class Slide(models.Model):
     slide_header = models.CharField(max_length=255)
     url = models.URLField()
 
+    # @staticmethod
+    # def get_or_create_slide(week_number, day, slide_set, slide_number, slide_header, url):
+    #     slide, created = Slide.objects.get_or_create(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number, slide_header=slide_header, url=url)
+    #
+    #     return slide
+
 class Comment(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, related_name="comments")
