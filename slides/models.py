@@ -37,3 +37,24 @@ class Attachment(models.Model):
 
     def __unicode__(self):
         return self.file.name.split('/')[2]  #FIX and add test
+
+class Note(models.Model):
+    user = models.ForeignKey(User)
+    title = models.CharField(max_length=200)
+    body = models.TextField()
+    pub_date = models.DateTimeField()
+
+    def __unicode__(self):
+        return self.title
+
+class RuPageModel(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
+    text = models.TextField(null=True,blank=True)
+    pub_date = models.DateTimeField(auto_now=True)
+    page_url = models.CharField(max_length=500, null=True, blank=True)
+    page_number = models.CharField(max_length=5,null=True, blank=True)
+    page_down = models.CharField(max_length=5,null=True, blank=True)
+
+
+    def __unicode__(self):
+        return self.page_url

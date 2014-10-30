@@ -59,6 +59,9 @@ urlpatterns = patterns('',
     url("^week3/3_am/$", TemplateView.as_view(template_name="week3/3_am.html"), name="week3_day3_am"),
     url("^week3/3_pm/$", TemplateView.as_view(template_name="week3/3_pm.html"), name="week3_day3_pm"),
     url("^week3/lab/$", TemplateView.as_view(template_name="week3/lab.html"), name="week3_lab"),
+
+    url(r'^root/$', 'slides.views.root', name='root'),
+     url(r'^root/$', 'slides.views.search', name='search'),
 )
 
 

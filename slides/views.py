@@ -5,7 +5,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from slides.forms import UserForm, CommmentForm
+from slides.forms import UserForm, CommmentForm, NotesSearchForm
 import uuid
 from slides.models import Comment, Attachment, Slide
 
@@ -151,3 +151,35 @@ def update_comments(request, week_number, day, slide_set, slide_number):
     data = {'comments': comments}
     return render(request, "update_comments.html", data)
 
+
+def root(request):
+    """
+    Search > Root
+    """
+
+    # we retrieve the query to display it in the template
+    form = NotesSearchForm(request.GET)
+
+    # we call the search method from the NotesSearchForm. Haystack do the work!
+    results = form.search()
+
+    return render(request, 'search/search_root.html', {
+        'search_query' : "New York",
+        'notes' : results,
+    })
+
+def search(request):
+    """
+    Search > Root
+    """
+
+    # we retrieve the query to display it in the template
+    form = NotesSearchForm(request.GET)
+
+    # we call the search method from the NotesSearchForm. Haystack do the work!
+    results = form.search()
+
+    return render(request, 'search/search_root.html', {
+        'search_query' : "New York",
+        'notes' : results,
+    })
