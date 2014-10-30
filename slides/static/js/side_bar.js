@@ -1,23 +1,56 @@
 $(document).ready(function(){
-    var new_comment = {};
-    var weekNumber;
-    var day;
-    var slideSet;
-    var slideNumber;
-    var fileUploads;
 
+    function makeSlideCall() {
+       var currentSlideInfo = review_url(document.URL);
+        $.ajax({
+            url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
+            type: 'GET',
+            success: function (data) {
+                var slide = data;
+                console.log(slide);
+                count = 0;
+                // Get the current day and slide set from the window and expand the appropriate accordion
+                slide.forEach(function(slideObj) {
+                    var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
 
-    var url = '/image/upload/';
-        $('#fileupload').fileupload({
-            url: url,
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo('#files');
-                    $('<p/>').html("<img src='" + file.url + "' width=160px/>").appendTo('#files');
+                    if (count === 0) {
+                        $('dt:contains(' + slideInWindow + ')').trigger('click');
+                        count++;
+                    }
+
+                    // If we're in the wrong week, just get outta there
                 });
+
+            },
+            error: function (response) {
+
             }
         });
+    }
+
+    function fillComments(){
+        $.ajax({
+            url: ''
+        })
+    }
+
+    $(document).keydown(function (keyNumber) {
+        var key = keyNumber.which;
+        if( key === 39 || key === 38 ||  key === 37 || key === 40) {
+            makeSlideCall();
+        }
+    });
+
+    function review_url(url){
+       //figure out regex
+        var splitURL = {};
+        splitURL.weekNumber = parseInt(url.split('/')[3].slice(-1));
+        splitURL.day = url.split('/')[4]; //string
+        splitURL.slideSet= parseInt(url.split('/')[6]);
+        splitURL.slideNumber = parseInt(url.split('/')[7]);
+
+        return splitURL;
+    }
 
 
 //  //ADD COMMENT
