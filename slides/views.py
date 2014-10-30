@@ -213,8 +213,8 @@ def parse(request):
                 print page_down,'down'
                 print page_number,'number'
                 print each
-                item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                item.save()
+                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                # item.save()
                 page_down+=1
 
             if len(sub)==0:
@@ -223,8 +223,8 @@ def parse(request):
                 print page_down,'down'
                 print page_number,'number'
                 print section,'single page'
-                item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                item.save()
+                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                # item.save()
 
             page_number+=1
             page_down = 0
