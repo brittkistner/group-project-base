@@ -229,4 +229,26 @@ def parse(request):
             page_number+=1
             page_down = 0
 
+from django.shortcuts import render_to_response
+from .forms import NotesSearchForm
+
+def notes(request):
+    form = NotesSearchForm(request.GET)
+    notes = form.search()
+    return render_to_response('notes.html', {'notes': notes})
+
+
+# from haystack.query import SearchQuerySet
+# all_results = SearchQuerySet().all()
+# hello_results = SearchQuerySet().filter(content='hello')
+# hello_world_results = SearchQuerySet().filter(content='hello world')
+# unfriendly_results = SearchQuerySet().exclude(content='hello').filter(content='world')
+# recent_results = SearchQuerySet().order_by('-pub_date')[:5]
+#
+# # Using the new input types...
+# from haystack.inputs import AutoQuery, Exact, Clean
+# sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']), product_type=Exact('ancient book'))
+#
+# if request.GET['product_url']:
+#     sqs = sqs.filter(product_url=Clean(request.GET['product_url']))
 
