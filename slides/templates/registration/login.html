@@ -1,10 +1,44 @@
-{% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+</head>
+<body>
 
-<h1>Login</h1>
+<div class="container" id="page">
+<div class="logo">
+    <p id="lectures">Lectures & Materials</p>
+    <img id="rocket" src="{% static "img/rocketu-logo-dark.png" %}" alt=""/></div>
+
+
+    <p id="editAccount">Edit Account</p>
+    <hr>
+
+<div class="wholePage">
+    <div class="profilePic">
+        <div>
+            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
+        </div>
+
+    </div>
+
+{# FORMS  #}
+
+    <h1>Login</h1>
 <form method="post" action=".">
     {% csrf_token %}
-    {% crispy form %}
+{#    {% crispy form %}#}
+    {{ form.as_p }}
     <button class= "btn btn-primary" type="submit" value="Log in">Log in</button>
 </form>
 <p>Not a member? <a class= "btn btn-primary" href="{% url 'register' %}">Register</a></p>
 <a class="btn btn-primary" href="{% url 'password_reset' %}">Forgot Password?</a>
+</div>
+</div>
+
+</body>
+</html>

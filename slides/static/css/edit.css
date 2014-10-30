@@ -79,3 +79,8 @@ form {
 body {
     padding-top: 30px;
 }
+
+#register-body {
+    margin-left: -68px;
+}
+
