@@ -60,60 +60,26 @@ $(document).ready(function(){
 
         return splitURL;
     }
+    var weekNumber;
+    var day;
 
 
 
+//on page load
+    $("#resources").on("click", function(){ //change
+       review_url(location.pathname);
+       $.ajax({
+            url: '/get_slides/' + weekNumber + '/' + day + '/',
+            type: 'GET',
+            success: function(response) {
+                $('#resources').html(response); //change
+            },
+            error: function(response) {
+                console.log(response.body);
+            }
+        });
+    });
 
-//  //ADD COMMENT
-//    //ajax call which renders a django comment form with fields text and attachment
-//    $("#add_comment").on("click", function(){
-//       $.ajax({
-//            url: '',
-//            type: 'GET',
-//            success: function(response) {
-//                //render the django comment form, will this go through the create_comment view?
-//            },
-//            error: function(response) {
-//                console.log(response.body);
-//            }
-//        });
-//    });
-//
-//    $("#fileupload").fileupload({
-////       url: url,
-////       dataType: 'json',
-////       done: function (e, data)
-//        //return
-//    });
-//  // CREATE COMMENT
-//    $("#comment_form_submit").on("submit", function(){
-//        //figure out regex
-//        weekNumber = parseInt(location.pathname.split('/')[3]);
-//        day = location.pathname.split('/')[4]; //string
-//        slideSet= parseInt(location.pathname.split('/')[6]);
-//        slideNumber = parseInt(location.pathname.split('/')[7]);
-////        var url = (location.pathname)
-////        var myRegexp;  //come up with this
-////        var match = myRegexp.exec(myRegexp);
-////        weekNumber = parseInt(match[1])
-////        day = match
-//
-//
-//        //return fileupload here
-//
-//        $.ajax({
-//            url: '/create_comment/week' + weekNumber + '/' + day + '/' + slideSet + '/' + slideNumber + '/',
-//            type: 'POST',
-//            dataType: 'json',
-//            data: $(this).serialize(),
-//            // will the data look like this? data = { 'commentText': 'text field', 'attachments' : [] }
-//            success: function(response) {
-//                console.log(JSON.stringify(response));
-//            },
-//            error: function(response) {
-//                console.log(response.body);
-//            }
-//        });
-//    });
+
 });
 
