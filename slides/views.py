@@ -88,8 +88,10 @@ def edit_profile(request):
 @csrf_exempt
 def create_comment(request, week_number, day, slide_set, slide_number):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        print "This is data {}".format(data)
+        # data = json.loads(request.body)
+        # print "This is data {}".format(data)
+        data = json.loads(request.POST)
+        print data
         print request.POST
         print request.POST.getlist('files')
         form = CommentForm(request.POST, week_number, day, slide_set, slide_number)

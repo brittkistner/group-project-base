@@ -24,6 +24,8 @@ class Comment(models.Model):
     user = models.ForeignKey(User, related_name="comments")
     date = models.DateTimeField(auto_now_add=True)
     slide = models.ForeignKey(Slide, related_name="comments")
+    slide_set = models.IntegerField()
+    slide_number = models.IntegerField()
 
     def __unicode__(self):
         return u"slide on {}".format(self.date)

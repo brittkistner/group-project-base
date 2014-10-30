@@ -129,7 +129,7 @@
                             <!-- The container for the uploaded files -->
                             <div id="files" class="files"></div>
 
-                            </div>
+
                         {#                            Drag and Drop html ends here#}
 
                             <div class="save-button">
@@ -137,12 +137,13 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+{#                    </div>#}
                 </div>
-                {% block slides %}
-                {% endblock %}
-                <div class="footer">
-                </div>
+            </div>
+            {% block slides %}
+            {% endblock %}
+            <div class="footer">
+            </div>
         </div>
     </div>
     <script src="{% static "js/head.min.js" %}"></script>
