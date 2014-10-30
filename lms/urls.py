@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url("^login/$", 'django.contrib.auth.views.login', name='login'),
     url("^register/$", 'slides.views.register', name="register"),
 
+
     # PASSWORD RESET
     url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
     url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),

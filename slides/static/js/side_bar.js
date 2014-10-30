@@ -62,6 +62,8 @@ $(document).ready(function(){
     }
 
 
+
+
 //  //ADD COMMENT
 //    //ajax call which renders a django comment form with fields text and attachment
 //    $("#add_comment").on("click", function(){
