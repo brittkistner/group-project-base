@@ -61,7 +61,8 @@ urlpatterns = patterns('',
     url("^week3/lab/$", TemplateView.as_view(template_name="week3/lab.html"), name="week3_lab"),
 
     url(r'^root/$', 'slides.views.root', name='root'),
-     url(r'^root/$', 'slides.views.search', name='search'),
+    url(r'^search/$', 'slides.views.search', name='search'),
+    url(r'^parse/$', 'slides.views.search', name='parse'),
 )
 
 

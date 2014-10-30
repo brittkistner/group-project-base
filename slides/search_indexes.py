@@ -25,12 +25,12 @@ class NoteIndex(indexes.SearchIndex, indexes.Indexable):
 
 
 class RuPageIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField(model_attr='title')
-    page_url = indexes.CharField(model_attr='page_url')
-    page_number = indexes.CharField(model_attr='page_number')
-    page_down = indexes.CharField(model_attr='page_down')
-    pub_date = indexes.DateTimeField(model_attr='pub_date')
+    text = indexes.CharField(document=True, use_template=True, null=True)
+    title = indexes.CharField(model_attr='title', null=True)
+    page_url = indexes.CharField(model_attr='page_url', null=True)
+    page_number = indexes.CharField(model_attr='page_number', null=True)
+    page_down = indexes.CharField(model_attr='page_down', null=True)
+    pub_date = indexes.DateTimeField(model_attr='pub_date', null=True)
 
     def get_model(self):
         return RuPageModel
