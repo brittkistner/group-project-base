@@ -7,10 +7,10 @@
 </form>
 
 {% for page in pages %}
-<h1>{{ page.page_url }}</h1>
-<p>
-    {{ page.text }}
-</p>
+<div>{{ page.page_url|safe }}</div>>
+<div>
+    {{ page.text|safe }}
+</div>
 {% endfor %}
 {% endblock %}
 
