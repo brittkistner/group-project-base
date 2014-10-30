@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //$('#search').dblclick(function () {
        // $('#search').click(function () {
-    $(document).keypress(function(e) {
+    $('#search-box').keypress(function(e) {
     if(e.which == 13) {
        // alert('You pressed enter!');
 
