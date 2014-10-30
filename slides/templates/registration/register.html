@@ -1,17 +1,40 @@
 {#{% extends "base.html" %}#}
 {% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+</head>
+<body>
 
-{#{% block content %}#}
-<br>
-<br>
-<br>
-<br>
+<div class="container" id="page">
+<div class="logo">
+    <p id="lectures">Lectures & Materials</p>
+    <img id="rocket" src="{% static "img/rocketu-logo-dark.png" %}" alt=""/></div>
+
+
+    <p id="editAccount">Register</p>
+    <hr>
+
+<div class="wholePage">
+
+{# FORMS  #}
+
 <div class="container">
     <div class="row register">
-        <div class="col-sm-5 col-sm-offset-3">
+        <div class="col-sm-7 col-sm-offset-3" id="register-body">
             {% csrf_token %}
             {% crispy form %}
         </div>
     </div>
 </div>
 
+</div>
+</div>
+
+</body>
+</html>
