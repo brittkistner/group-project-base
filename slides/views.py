@@ -1,3 +1,4 @@
+import code
 import json
 from django.contrib.auth import authenticate, login
 from django.contrib.comments import CommentForm
@@ -135,19 +136,27 @@ def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number
 ######################
 #Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
 #create ajax call
-def get_comment(request, week_number, day):
+def get_slides(request, week_number, day, slide_set):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
-    slides = Slide.objects.filter(week_number=week_number, day=day).order_by('slide_set','slide_number', 'date')
-    data = {'slides': slides}
-    return render(request, "all_slides.html", data)
+    slides = Comment.objects.filter(
+        slide__week_number=week_number,
+        slide__day=day,
+        slide_set=slide_set
+    )
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 
 #######################
 # REFRESH COMMENTS #
 ######################
 #Update comments for the comment section which is open (or which has just been clicked)
 #create ajax call
-def update_comments(request, week_number, day, slide_set, slide_number):
-    comments = Comment.objects.filter(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number).order_by('date')
-    data = {'comments': comments}
-    return render(request, "update_comments.html", data)
+def update_comments(request, day, slide_set):
+    slides_and_comments = []
+    slides = Comment.objects.filter(slide__day=day, slide__slide_set=slide_set)
+    # for slide in slides:
+    #     for comment in slide.comments.all():
+    #         slides_and_comments.append(list(slide) + list(comment.text))
+
+
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 
