@@ -150,8 +150,13 @@ def get_slides(request, week_number, day, slide_set):
 ######################
 #Update comments for the comment section which is open (or which has just been clicked)
 #create ajax call
-def update_comments(request, week_number, day, slide_set, slide_number):
-    comments = Comment.objects.filter(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number).order_by('date')
-    data = {'comments': comments}
-    return render(request, "update_comments.html", data)
+def update_comments(request, day, slide_set):
+    slides_and_comments = []
+    slides = Comment.objects.filter(slide__day=day, slide__slide_set=slide_set)
+    # for slide in slides:
+    #     for comment in slide.comments.all():
+    #         slides_and_comments.append(list(slide) + list(comment.text))
+
+
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 

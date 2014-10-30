@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url("^test$", TemplateView.as_view(template_name="test.html"), name="test"),
     url('^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\w+)/$',
         'slides.views.get_slides', name='get_slides'),
+    url('^get_comments/(?P<day>\w+)/(?P<slide_set>\w+)/$',
+        'slides.views.update_comments', name='update_comments'),
 
     # LOGIN AND REGISTER
     url("^login/$", 'django.contrib.auth.views.login', name='login'),

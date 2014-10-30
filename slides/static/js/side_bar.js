@@ -7,7 +7,8 @@ $(document).ready(function(){
             type: 'GET',
             success: function (data) {
                 var slide = data;
-                console.log(slide);
+                fillComments();
+                console.log('fill comments worked!');
                 count = 0;
                 // Get the current day and slide set from the window and expand the appropriate accordion
                 slide.forEach(function(slideObj) {
@@ -29,10 +30,18 @@ $(document).ready(function(){
     }
 
     function fillComments(){
+        var currentSlideInfo = review_url(document.URL);
         $.ajax({
-            url: ''
-        })
+            url: '/get_comments/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+
+            }
+
+        });
     }
+    fillComments();
 
     $(document).keydown(function (keyNumber) {
         var key = keyNumber.which;

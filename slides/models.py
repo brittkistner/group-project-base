@@ -13,7 +13,7 @@ class Slide(models.Model):
     day = models.CharField(max_length=5)
     slide_set = models.IntegerField()
     slide_number = models.IntegerField()
-    slide_header = models.CharField(max_length=255)
+    slide_header = models.CharField(max_length=255, default=0)
 
     def __unicode__(self):
         return 'Slide header Week: {} Day: {} Slide set: {} Slide number: {}'.format(
@@ -28,6 +28,14 @@ class Comment(models.Model):
     user = models.ForeignKey(User, related_name="comments")
     date = models.DateTimeField(auto_now_add=True)
     slide = models.ForeignKey(Slide, related_name="comments")
+    slide_set = models.IntegerField(default=0)
+    slide_number = models.IntegerField(default=0)
+
+    def slide_data(self):
+        return {
+            'slide_set': self.slide.slide_set,
+            'slide_number': self.slide.slide_number
+        }
 
     def __unicode__(self):
         return u"Comment on day {}, slideset {} slide number {} made on {}".format(
