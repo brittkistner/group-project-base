@@ -1,0 +1,124 @@
+{% load i18n future staticfiles %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <title>{% block meta_title %}{% endblock %}</title>
+
+    <meta name="author" content="Yeti LLC">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '/static/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="{% static "css/zenburn.css" %}">
+
+    <link rel="stylesheet/less" type="text/css" media="all" href="{% static "less/style.less" %}" />
+    <link rel="stylesheet/less" type='text/css' href="{% static 'less/comments.less'  %}">
+    <script>
+        less = {
+            logLevel: 0
+        }
+    </script>
+    <script src="{% static "js/less-1.7.0.min.js" %}"></script>
+
+    <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/side_bar.js' %}"></script>
+</head>
+
+<body class="{% block body_css %}{% endblock body_css %}">
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <div id="runningTitle">
+                <div class="col-7">
+                        <a href="#">{% block running_title %}{% endblock %}</a>
+                </div>
+                <div class="col-5">
+                        <a href="{% url "slides_home" %}" id="rocketULogo"><img class="pull-right" src="{% static "img/rocketu-logo-dark.png" %}"></a>
+
+                </div>
+            </div>
+
+
+            {% block title_slide %}
+                <section class="titleSlide" data-background="#168eae">
+                    <h1>{% block presentation_title %}{% endblock %}</h1>
+                    <a id="yetiLogo" href="http://www.yetihq.com/"><img src="{% static "img/yeti-power.png" %}"></a>
+                </section>
+            {% endblock %}
+
+            {% block slides %}
+            {% endblock %}
+
+            <div class="footer">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="{% static "js/head.min.js" %}"></script>
+    <script src="{% static "js/reveal.js" %}"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 960,
+            height: 750,
+            margin: 0.1,
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            slideNumber: true,
+
+			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '{% static "js/classList.js" %}', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '{% static "plugin/highlight/highlight.js" %}', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '{% static "plugin/zoom-js/zoom.js" %}', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '{% static "plugin/notes/notes.js" %}', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+    <script src="{% static "js/slides.js" %}"></script>
+
+</body>
+</html>
+
