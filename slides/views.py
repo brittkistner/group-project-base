@@ -230,12 +230,17 @@ def parse(request):
             page_down = 0
 
 from django.shortcuts import render_to_response
-from .forms import NotesSearchForm
+from .forms import NotesSearchForm, RuPageModelSearchForm
 
 def notes(request):
     form = NotesSearchForm(request.GET)
     notes = form.search()
     return render_to_response('notes.html', {'notes': notes})
+
+def rusearch(request):
+    form = RuPageModelSearchForm(request.GET)
+    pages = form.search()
+    return render_to_response('rusearch.html', {'pages': pages})
 
 
 # from haystack.query import SearchQuerySet

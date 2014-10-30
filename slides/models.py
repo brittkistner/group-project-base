@@ -6,7 +6,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=255)
 
     def __unicode__(self):
-        return self.name
+        return self.username
 
 class Slide(models.Model):
     week_number = models.IntegerField()

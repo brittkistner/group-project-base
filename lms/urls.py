@@ -64,6 +64,7 @@ urlpatterns = patterns('',
     url(r'^search/$', 'slides.views.search', name='search'),
     url(r'^parse/$', 'slides.views.search', name='parse'),
     url(r'^notes/$', 'slides.views.notes', name='notes'),
+    url(r'^rusearch/$', 'slides.views.rusearch', name='rusearch'),
 )
 
 
