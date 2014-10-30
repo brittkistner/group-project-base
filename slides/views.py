@@ -186,9 +186,29 @@ def search(request):
 def parse(request):
     start_urls = [
     "http://127.0.0.1:8000/week1/1/",
-    # "http://127.0.0.1:8000/week1/2/",
-    # "http://127.0.0.1:8000/week1/3/",
-    # "http://127.0.0.1:8000/week1/4_am/",
+    "http://127.0.0.1:8000/week1/2/",
+    "http://127.0.0.1:8000/week1/3/",
+    "http://127.0.0.1:8000/week1/4_am/",
+    "http://127.0.0.1:8000/week1/4_am/",
+    "http://127.0.0.1:8000/week1/4_pm/",
+    "http://127.0.0.1:8000/week2/1_am/",
+    "http://127.0.0.1:8000/week2/1_pm/",
+    "http://127.0.0.1:8000/week2/2_am/",
+    "http://127.0.0.1:8000/week2/2_pm/",
+    "http://127.0.0.1:8000/week2/3_am/",
+    "http://127.0.0.1:8000/week2/3_pm/",
+    "http://127.0.0.1:8000/week2/4_am/",
+    "http://127.0.0.1:8000/week2/4_pm/",
+    "http://127.0.0.1:8000/week2/5_am/",
+    "http://127.0.0.1:8000/week2/5_pm/",
+    "http://127.0.0.1:8000/week3/1_am/",
+    "http://127.0.0.1:8000/week3/1_pm/",
+    "http://127.0.0.1:8000/week3/2_am/",
+    "http://127.0.0.1:8000/week3/2_pm/",
+    "http://127.0.0.1:8000/week3/3_am/",
+    "http://127.0.0.1:8000/week3/3_pm/",
+    "http://127.0.0.1:8000/week3/lab/",
+
     ]
     for cururl in start_urls:
         filename = cururl.split("/")
@@ -208,8 +228,8 @@ def parse(request):
                 print page_down,'down'
                 print page_number,'number'
                 print each
-                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                # item.save()
+                item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                item.save()
                 page_down+=1
 
             if len(sub)==0:
@@ -218,8 +238,8 @@ def parse(request):
                 print page_down,'down'
                 print page_number,'number'
                 print section,'single page'
-                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                # item.save()
+                item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                item.save()
 
             page_number+=1
             page_down = 0

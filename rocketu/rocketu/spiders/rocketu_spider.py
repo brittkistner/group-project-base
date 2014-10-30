@@ -12,7 +12,6 @@ from rocketu.items import RocketuItem
 from whoosh.index import create_in, open_dir
 from whoosh.fields import *
 import os
-from slides.models import RuPageModel
 
 
 def open_writer():
@@ -60,7 +59,7 @@ class RocketUSpider(BaseSpider):
                 print page_number,'number'
                 print each
                 item = RocketuItem(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                item.save()
+                yield item
                 page_down+=1
 
             if len(sub)==0:
@@ -70,7 +69,7 @@ class RocketUSpider(BaseSpider):
                 print page_number,'number'
                 print section,'single page'
                 item = RocketuItem(text=text, page_url=url, page_number=page_number, page_down=page_down)
-                item.save()
+                yield item
 
             page_number+=1
             page_down = 0
