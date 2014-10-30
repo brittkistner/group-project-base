@@ -11,7 +11,13 @@
 })(jQuery);
 
 $(document).ready(function () {
-
+    var weekNumber;
+    var day;
+    var slideSet;
+    var slideNumber;
+    var slideHeader;
+    var url;
+    var headerHtml;
 
     $('#comments1').hide();
     $('#btn2').click(function () {
@@ -24,23 +30,45 @@ $(document).ready(function () {
         $('#comments1').show();
     });
 
-});
-
-$(document).ready(function () {
-   // Change this to the location of your server-side upload handler:
-    var url = 'upload/comment';
-    var weekNumber;
-    var day;
-    var slideSet;
-    var slideNumber;
-
-    var review_url = function(url){
+    var review_url = function(path){
        //figure out regex
-        weekNumber = parseInt(url.split('/')[3]);
-        day = url.split('/')[4]; //string
-        slideSet= parseInt(url.split('/')[6]);
-        slideNumber = parseInt(url.split('/')[7]);
+        url = path;
+        weekNumber = parseInt(path.split('/')[3]);
+        day = path.split('/')[4]; //string
+        slideSet= parseInt(path.split('/')[6]);
+        slideNumber = parseInt(path.split('/')[7]);
     };
+
+    var getHeader = function(){
+        headerHtml = $('.present').find('h2');
+        slideHeader = headerHtml[0].firstChild.nodeValue;
+    };
+
+   $('#save').on('click', function(){
+       review_url(location.pathname);
+       getHeader();
+       $.ajax({
+            url: '/create_comment/' + weekNumber + '/'
+                + day + '/' + slideSet + '/'
+                + slideNumber + '/' + slideHeader
+                + '/' + url + '/',
+            type: 'POST',
+            dataType: 'json',
+            data: $(this).serialize(), //what should be serialized here?
+            success: function(response) {
+                console.log('success');
+                $('#resources1').hide();
+                $('#comments1').show();
+            },
+            error: function(response) {
+                console.log(response.body);
+            }
+        });
+   });
+
+
+
+   //Drag and drop below
 
     'use strict';
     $('#fileupload').fileupload({

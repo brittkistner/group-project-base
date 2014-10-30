@@ -14,13 +14,10 @@ class Slide(models.Model):
     slide_set = models.IntegerField()
     slide_number = models.IntegerField()
     slide_header = models.CharField(max_length=255)
-    url = models.URLField()
+    url = models.URLField(null=True)
 
-    # @staticmethod
-    # def get_or_create_slide(week_number, day, slide_set, slide_number, slide_header, url):
-    #     slide, created = Slide.objects.get_or_create(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number, slide_header=slide_header, url=url)
-    #
-    #     return slide
+    def __unicode__(self):
+        return self.slide_header
 
 class Comment(models.Model):
     text = models.TextField()
