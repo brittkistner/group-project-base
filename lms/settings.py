@@ -27,6 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -37,7 +38,21 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'slides',
+    'storages',
+    'crispy_forms',
+    'haystack',
 )
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+
+#Django Crispy Forms:
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,12 +93,29 @@ USE_L10N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'slides.User'
+LOGIN_REDIRECT_URL = 'slides_home'
+LOGIN_URL = 'login'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "static", *MEDIA_URL.strip("/").split("/"))
+
+# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'slides/static')
 
 try:
     from local_settings import *
 except ImportError:
     pass
+
+# try:
+#     from production import *
+# except ImportError:
+#     pass

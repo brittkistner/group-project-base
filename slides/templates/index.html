@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>Welcome to the slides!</h1>
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block running_title %}
+    <span id="front-title">Lectures & Materials</span>
+{% endblock %}
+
+{% block slides %}
+<section>
+    <div id="all-weeks">
+        <h2 id="front-search">All Weeks</h2>
+        <img class="img-thumbnail" id="search" src="{% static 'img/search.png' %}" />
+
+    </div>
+    <hr>
     <div class="col-6">
         <dl class="accordion">
             <dt>Week 1</dt>
@@ -47,5 +54,5 @@
             </dd>
         </dl>
     </div>
-</body>
-</html>
+</section>
+{% endblock slides %}
