@@ -1,5 +1,7 @@
 import code
 import json
+import urllib2
+from bs4 import BeautifulSoup
 from django.contrib.auth import authenticate, login
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
@@ -8,7 +10,9 @@ from django.views.decorators.csrf import csrf_exempt
 from slides.forms import UserForm, UpdateUserForm, CommentForm
 import uuid
 from slides.models import Comment, Attachment, Slide, User
-
+from slides.models import Comment, Attachment, Slide, RuPageModel
+from django.shortcuts import render_to_response
+from .forms import NotesSearchForm, RuPageModelSearchForm
 ###############
 # REGISTRATION #
 ###############
@@ -143,4 +147,107 @@ def update_comments(request, day, slide_set):
 
 # def test_comment(request):
 #     return render(request, "test_comment.html")
+
+
+def root(request):
+    """
+    Search > Root
+    """
+
+    # we retrieve the query to display it in the template
+    form = NotesSearchForm(request.GET)
+
+    # we call the search method from the NotesSearchForm. Haystack do the work!
+    results = form.search()
+
+    return render(request, 'search/search_root.html', {
+        'search_query' : "New York",
+        'notes' : results,
+    })
+
+def search(request):
+    """
+    Search > Root
+    """
+
+    # we retrieve the query to display it in the template
+    form = NotesSearchForm(request.GET)
+
+    # we call the search method from the NotesSearchForm. Haystack do the work!
+    results = form.search()
+
+    return render(request, 'search/search_root.html', {
+        'search_query' : "New York",
+        'notes' : results,
+    })
+
+
+
+def parse(request):
+    start_urls = [
+    "http://127.0.0.1:8000/week1/1/",
+    # "http://127.0.0.1:8000/week1/2/",
+    # "http://127.0.0.1:8000/week1/3/",
+    # "http://127.0.0.1:8000/week1/4_am/",
+    ]
+    for cururl in start_urls:
+        filename = cururl.split("/")
+        file = filename[3]+filename[4]
+        source = urllib2.urlopen(cururl).read()
+        soup = BeautifulSoup(source)
+        body = soup.find('div',id='classSlides')
+        sections = body.find_all('section', recursive=0)
+        page_number = 1
+        page_down = 0
+        for section in sections:
+            sub = section.find_all('section', recursive=0)
+            for each in sub:
+                url = cururl+'#'+'/'+ str(page_number) + '/' + str(page_down)
+                text = str(each)
+                print url,'url'
+                print page_down,'down'
+                print page_number,'number'
+                print each
+                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                # item.save()
+                page_down+=1
+
+            if len(sub)==0:
+                url = cururl+'#'+'/'+ str(page_number) + '/' + str(page_down)
+                text = str(section)
+                print page_down,'down'
+                print page_number,'number'
+                print section,'single page'
+                # item = RuPageModel(text=text, page_url=url, page_number=page_number, page_down=page_down)
+                # item.save()
+
+            page_number+=1
+            page_down = 0
+
+
+
+def notes(request):
+    form = NotesSearchForm(request.GET)
+    notes = form.search()
+    return render_to_response('notes.html', {'notes': notes})
+
+def rusearch(request):
+    form = RuPageModelSearchForm(request.GET)
+    pages = form.search()
+    return render_to_response('rusearch.html', {'pages': pages})
+
+
+# from haystack.query import SearchQuerySet
+# all_results = SearchQuerySet().all()
+# hello_results = SearchQuerySet().filter(content='hello')
+# hello_world_results = SearchQuerySet().filter(content='hello world')
+# unfriendly_results = SearchQuerySet().exclude(content='hello').filter(content='world')
+# recent_results = SearchQuerySet().order_by('-pub_date')[:5]
+#
+# # Using the new input types...
+# from haystack.inputs import AutoQuery, Exact, Clean
+# sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']), product_type=Exact('ancient book'))
+#
+# if request.GET['product_url']:
+#     sqs = sqs.filter(product_url=Clean(request.GET['product_url']))
 
