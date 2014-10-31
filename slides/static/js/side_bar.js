@@ -37,7 +37,7 @@ $(document).ready(function(){
         var currentSlideInfo = review_url(window.location.href);
         console.log(window.location.href);
         if (isNaN(currentSlideInfo.slideNumber) === false) {
-
+            console.log('The slide number is being pulled');    
             var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
             $.ajax({
                 url: '/subset_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' +
