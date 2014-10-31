@@ -101,23 +101,23 @@
                             <!-------< Comments with resources >------->
                                 <div id="resource-field">
 
-                                    <textarea placeholder="Add your files here..." name="resources" id="resource-area" cols="30" rows="10"></textarea>
+                                    <textarea placeholder="Comment here..." name="resources" id="resource-area" cols="30" rows="5" style="height:150px;"></textarea>
 
                                 </div>
 
 {#                            Drag and Drop html starts here#}
                             <!-- The container for the uploaded files -->
-                            <div id="files" class="files"></div>
+                            <div data-spy="scroll" data-target=".files">
+                                <div id="files" class="files">
+
+                                </div>
+                            </div>
                             <span class="btn btn-default btn-lg fileinput-button" id="upload-button">
 {#                                <i class="glyphicon glyphicon-plus"></i>#}
                                 <span class="drag-files-here">Drag Files Here</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input id="fileupload" type="file" name="files[]" multiple>
                             </span>
-{#                            <!-- The global progress bar -->#}
-{#                            <div id="progress" class="progress">#}
-{#                                <div class="progress-bar progress-bar-success"></div>#}
-{#                            </div>#}
                             <hr class="line">
                         {#                            Drag and Drop html ends here#}
 

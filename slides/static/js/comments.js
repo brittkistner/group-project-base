@@ -19,9 +19,10 @@ $(document).ready(function () {
     var slideSet;
     var slideNumber;
     var slideHeader;
-    var url;
+    var url_web;
     var headerHtml;
-    var fileData = [];
+
+    $('body').scrollspy({ target: '.navbar-example' })
 
     $('#comments1').hide();
     $('#btn2').click(function () {
@@ -31,12 +32,12 @@ $(document).ready(function () {
 
     $('#btn1').click(function () {
         $('#resources1').show();
-        $('#comments1').show();
+        $('#comments1').hide();
     });
 
     var review_url = function(path){
        //figure out regex
-        url = path;
+        url_web = path;
         weekNumber = path.split('/')[1];
         day = path.split('/')[2]; //string
         if (path.split('/').length < 5){
@@ -61,10 +62,10 @@ $(document).ready(function () {
 
 
    $('#save').on('click', function(){
+       $('#resources1').hide();
+       $('#comments1').show();
        review_url(location.pathname);
        getHeader();
-       console.log('passed review_url and getHeader');
-       console.log(fileData);
        $.ajax({
            //think about passing the data differently (maybe through data?)
             url: '/create_comment/' + weekNumber + '/'
@@ -75,8 +76,7 @@ $(document).ready(function () {
             data: {
                 'text': JSON.stringify($('#resource-area').val()),
                 'slide_header': JSON.stringify(slideHeader),
-                'files[]' : fileData,
-                'url' : JSON.stringify(url)
+                'url' : JSON.stringify(url_web)
             },
             success: function(response) {
                 console.log('success');
@@ -89,35 +89,51 @@ $(document).ready(function () {
         });
    });
 
-
-
    //Drag and drop below
     $(function () {
+        review_url(location.pathname);
+        getHeader();
         'use strict';
-
+        var url = '/create_comment/';
         $('#fileupload').fileupload({
-            dataType: 'json',
+            url: url,
             autoUpload: false,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py)$/i,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py|txt)$/i,
             maxFileSize: 20000000, // 20 MB
             // Enable image resizing, except for Android and Opera,
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
             disableImageResize: /Android(?!.*Chrome)|Opera/
                 .test(window.navigator.userAgent),
-            previewMaxWidth: 100,
-            previewMaxHeight: 100,
-            previewCrop: true
-        }).on('fileuploadadd', function (e, data) {
-            fileData.push(data.files[0]);
-            console.log(data);
-            console.log(fileData);
+            previewMaxWidth: 75,
+            previewMaxHeight: 75,
+            previewCrop: true,
+        })
+//            .bind('fileuploadsubmit', function (e, data) {
+//            console.log('fileupload');
+//            data.formData = {'id': 'success',
+//                            'slide_header': JSON.stringify(slideHeader),
+//                            'url' : JSON.stringify(url_web),
+//                            'text': JSON.stringify(''),
+//                            'weekNumber': JSON.stringify(weekNumber),
+//                            'day': JSON.stringify(day),
+//                            'slideSet': JSON.stringify(slideSet),
+//                            'slideNumber': JSON.stringify(slideNumber),
+//                            'comment_id': JSON.stringify(commentId)}; //finish this part
+//            console.log('file submit');
+//        })
+            .on('fileuploadadd', function (e, data) {
             data.context = $('<div/>').appendTo('#files');
             $.each(data.files, function (index, file) {
                 var node = $('<p/>')
                         .append($('<span/>').text(file.name));
                 node.appendTo(data.context);
+                $('<a href="#">remove</a>')
+                    .css({"font-size":"50%","color":"rgba(235, 235, 235, 0.6)" })
+                    .appendTo(data.context);
+                $('#fileupload').data = file.data
             });
+            console.log('fileuploadadd');
         }).on('fileuploadprocessalways', function (e, data) {
             var index = data.index,
                 file = data.files[index],
@@ -137,12 +153,6 @@ $(document).ready(function () {
                     .text('Upload')
                     .prop('disabled', !!data.files.error);
             }
-        }).on('fileuploadprogressall', function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
         }).on('fileuploaddone', function (e, data) {
             $.each(data.result.files, function (index, file) {
                 if (file.url) {
