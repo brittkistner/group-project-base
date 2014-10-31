@@ -15,6 +15,7 @@ $(document).ready(function () {
                 dataType: 'html',
                 success: function (data) {
                     console.log(data);
+                    $("#resource-section").empty()
                     $("#resource-section").append(data)
                 },
                 error: function (data) {

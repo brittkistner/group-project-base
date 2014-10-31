@@ -27,7 +27,6 @@ ecdsa==0.10
 elasticsearch==1.2.0
 factory-boy==2.4.1
 haystack==0.15
-haystack-static-pages==0.2.1alpha
 lxml==3.4.0
 newrelic==2.34.0.29
 paramiko==1.12.2

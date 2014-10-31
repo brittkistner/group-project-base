@@ -210,6 +210,7 @@ def parse(request):
     "http://127.0.0.1:8000/week3/lab/",
 
     ]
+    print 'running'
     for cururl in start_urls:
         filename = cururl.split("/")
         file = filename[3]+filename[4]
