@@ -3,6 +3,7 @@ $(document).ready(function(){
 
     function makeSlideCall() {
        var currentSlideInfo = review_url(window.location.href);
+        console.log('a slide call has been made');
         $.ajax({
             url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day,
             type: 'GET',
@@ -18,22 +19,13 @@ $(document).ready(function(){
                                     '</ul>' +
                                 '</dd>' +
                         '<hr>');
-                    var allPanels = $('.accordion > dd').hide();
-                    $('.accordion > dt').click(function() {
-
-                    var alreadyOpen = $(this).next().css('display') === 'block';
-                    allPanels.slideUp();
-                    if (!alreadyOpen) {
-                            $(this).next().slideDown();
-                        }
-                    });
 
                     console.log(slide);
             });
 
             },
             error: function (response) {
-
+                console.log(response);
             }
         });
     }

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from slides.forms import UserForm, UpdateUserForm, CommentForm
-from slides.models import Comment,User
+from slides.models import Comment,User, Slide
 
 ###############
 # REGISTRATION #
