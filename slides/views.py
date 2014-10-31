@@ -118,7 +118,7 @@ def get_slides(request, week_number, day):
     slides = Slide.objects.filter(
         day=day,
         week_number=week_number,
-    )
+    ).order_by('id')
     return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 
 

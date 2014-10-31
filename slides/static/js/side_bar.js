@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+
     function makeSlideCall() {
        var currentSlideInfo = review_url(document.URL);
         $.ajax({
@@ -10,21 +11,23 @@ $(document).ready(function(){
 
                 // Get the current day and slide set from the window and expand the appropriate accordion
                 slides.forEach(function(slide) {
-                    $('#comment-block').append('' +
-                              '<div id="single-comment">'+
-                                    '<dl class="accordion" id="side-comment">' +
-                                        '<dt>'+ slide.fields.slide_set + ' ' + slide.fields.slide_header + '</dt>' +
-                                            '<dd>' +
-                                                '<ul>' +
-                                                '</ul>' +
-                                            '</dd>' +
-                                    '</dl>' +
-                                '</div>' +
-                                '<hr>');
+                        $('.accordion').append(
+                            '<dt>'+ slide.fields.slide_set + ' ' + slide.fields.slide_header + '</dt>' +
+                                '<dd>' +
+                                    '<ul>' +
+                                    '</ul>' +
+                                '</dd>' +
+                        '<hr>');
+                    var allPanels = $('.accordion > dd').hide();
+                    $('.accordion > dt').click(function() {
 
-                $('.accordion').accordion();
+                    var alreadyOpen = $(this).next().css('display') === 'block';
+                    allPanels.slideUp();
+                    if (!alreadyOpen) {
+                            $(this).next().slideDown();
+                        }
+                    });
 
-                var allPanels = $('.accordion > dd').hide();
                     console.log(slide);
             });
 
@@ -37,7 +40,6 @@ $(document).ready(function(){
 
     // Get the slides once
     makeSlideCall();
-
 
     function fillComments(){
         var currentSlideInfo = review_url(document.location.href);
@@ -59,17 +61,21 @@ $(document).ready(function(){
         }
 
         else {
-            var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
             $.ajax({
                 url: '/front_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
                 type: 'GET',
                 success: function (response) {
+                    console.log(response);
                     var comments = response;
 
+                    if ($('dt:contains(' + response[0].fields.day + ')').find('li').length === 0) {
                     comments.forEach(function (comment){
-//                        $('dt:contains' + currentSlideInfo.'')
-                        console.log(comment);
-                    });
+                        var $dt = $('dt:contains(' + comment.fields.slide_set + ')');
+                        $dt.append(
+                                '<li>' + comment.fields.text + '</li>'
+                        );
+                      });
+                    }
                 }
 
             });
