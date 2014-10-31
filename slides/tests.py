@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.test import TestCase
 import factory
 from slides.forms import UserForm
-from slides.models import User, Comment, Attachment
+from slides.models import User, Comment, Attachment, Slide
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -51,23 +51,19 @@ class ViewTestCase(TestCase):
         self.client.post(reverse('login'), data)
 
     def test_edit_account_page(self):
-        username = 'new-user'
+        name = 'new-user'
         data_create = {
-            'username': username,
             'email': 'test@test.com',
-            'name': 'new-user',
-            'password1': 'test',
-            'password2': 'test',
-            'image': ''
+            'name': name,
         }
 
-        response = self.client.post(reverse('register'), data_create)
+        response = self.client.post(reverse('edit_profile'), data_create)
 
         # Check this user was created in the database
-        self.assertTrue(User.objects.filter(username=username).exists())
+        self.assertTrue(User.objects.filter(name=name).exists())
 
         data_edit = {
-            'username':'test'
+            'name':'test'
         }
 
         response = self.client.post(reverse('edit_profile'), data_edit)
@@ -80,19 +76,17 @@ class ViewTestCase(TestCase):
         # self.assertTrue(response.get('location').endswith(reverse('profile')))
 
 
-    def test_create_attachemnt(self):
-        pass
-    #TODO
-
     def test_create_comment(self):
         pass
     #TODO
 
     def test_profile_page(self):
-        pass
-
-
-
+        user = UserFactory.create_batch(1)[0]
+        user.name = 'test'
+        user.save()
+        response = self.client.get(reverse('profile'))
+        # self.assertInHTML('<p id="editAccount">Welcome, {}</p>'.format(user.name), response.content)
+        self.assertInHTML('<p id="lectures">Registration and Profile</p>', response.content)
 
 
 class FormTestCase(TestCase):
@@ -121,14 +115,21 @@ class ModelTestCase(TestCase):
             last_name='1',
             password='1',
         )
+        self.slide = Slide.objects.create(
+            week_number = 1,
+            day = '2_am',
+            slide_set = 2,
+            slide_number = 1,
+            slide_header = 'hello world',
+            url = '/week1/1'
+        )
         self.comment = Comment.objects.create(
             text='hello',
             user=self.user,
             date=datetime.now(),
-            week_number='1',
-            day='5_am',
-            slide_set='2',
-            slide_number='1',
+            slide = self.slide,
+            slide_set= 2,
+            slide_number=1,
         )
         self.attachment = Attachment.objects.create(
             file='media/comment_attachment/hello_world.jpg',
@@ -139,6 +140,4 @@ class ModelTestCase(TestCase):
     def test_user_unicode(self):
         self.assertEqual(self.user.__unicode__(), 'user1')
 
-    # def test_attachement_unicode(self):
-    #     self.assertEqual(self.comment.__unicode__(), 'hello_world.jpg')
 
