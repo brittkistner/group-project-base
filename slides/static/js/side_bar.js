@@ -1,26 +1,35 @@
 $(document).ready(function(){
 
+
     function makeSlideCall() {
-       var currentSlideInfo = review_url(document.URL);
+       var currentSlideInfo = review_url(window.location.href);
         $.ajax({
-            url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
+            url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day,
             type: 'GET',
             success: function (data) {
-                var slide = data;
-                fillComments();
-                console.log('fill comments worked!');
-                count = 0;
+                var slides = data;
+
                 // Get the current day and slide set from the window and expand the appropriate accordion
-                slide.forEach(function(slideObj) {
-                    var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
+                slides.forEach(function(slide) {
+                        $('.accordion').append(
+                            '<dt>'+ slide.fields.slide_set + ' ' + slide.fields.slide_header + '</dt>' +
+                                '<dd>' +
+                                    '<ul>' +
+                                    '</ul>' +
+                                '</dd>' +
+                        '<hr>');
+                    var allPanels = $('.accordion > dd').hide();
+                    $('.accordion > dt').click(function() {
 
-                    if (count === 0) {
-                        $('dt:contains(' + slideInWindow + ')').trigger('click');
-                        count++;
-                    }
+                    var alreadyOpen = $(this).next().css('display') === 'block';
+                    allPanels.slideUp();
+                    if (!alreadyOpen) {
+                            $(this).next().slideDown();
+                        }
+                    });
 
-                    // If we're in the wrong week, just get outta there
-                });
+                    console.log(slide);
+            });
 
             },
             error: function (response) {
@@ -29,24 +38,55 @@ $(document).ready(function(){
         });
     }
 
+    // Get the slides once
+    makeSlideCall();
+
     function fillComments(){
-        var currentSlideInfo = review_url(document.URL);
-        $.ajax({
-            url: '/get_comments/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
-            type: 'GET',
-            success: function(response) {
-                console.log(response);
+        var currentSlideInfo = review_url(window.location.href);
+        console.log(window.location.href);
+        if (isNaN(currentSlideInfo.slideNumber) === false) {
 
-            }
+            var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
+            $.ajax({
+                url: '/subset_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' +
+                    currentSlideInfo.slideSet + '/' + currentSlideInfo.slideNumber,
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+//                $('dt:contains(' + slideInWindow + ')').append()
 
-        });
+                }
+
+            });
+        }
+
+        else {
+            $.ajax({
+                url: '/front_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    var comments = response;
+
+                    if ($('dt:contains(' + response[0].fields.day + ')').find('div').length === 0) {
+                    comments.forEach(function (comment){
+                        var $dt = $('dt:contains(' + comment.fields.slide_set + ')');
+                        $dt.append(
+                                '<div id=comment>' + comment.fields.text + '</div>'
+                        );
+                      });
+                    }
+                }
+
+            });
+        }
     }
-    fillComments();
 
+    // When the directional arrows are pressed, get the slide titles and their comments
     $(document).keydown(function (keyNumber) {
         var key = keyNumber.which;
         if( key === 39 || key === 38 ||  key === 37 || key === 40) {
-            makeSlideCall();
+            setTimeout(fillComments(), 1000);
         }
     });
 
@@ -60,25 +100,23 @@ $(document).ready(function(){
 
         return splitURL;
     }
-    var weekNumber;
-    var day;
 
 
 
 //on page load
-    $("#resources").on("click", function(){ //change
-       review_url(location.pathname);
-       $.ajax({
-            url: '/get_slides/' + weekNumber + '/' + day + '/',
-            type: 'GET',
-            success: function(response) {
-                $('#resources').html(response); //change
-            },
-            error: function(response) {
-                console.log(response.body);
-            }
-        });
-    });
+//    $("#resources").on("click", function(){ //change
+//       review_url(location.pathname);
+//       $.ajax({
+//            url: '/get_slides/' + weekNumber + '/' + day + '/',
+//            type: 'GET',
+//            success: function(response) {
+//                $('#resources').html(response); //change
+//            },
+//            error: function(response) {
+//                console.log(response.body);
+//            }
+//        });
+//    });
 
 
 });

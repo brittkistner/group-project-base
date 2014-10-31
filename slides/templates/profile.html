@@ -15,14 +15,20 @@
     <img id="rocket" src="{% static "img/rocketu-logo-dark.png" %}" alt=""/></div>
 
 
-    <p id="editAccount">Welcome, {{ User.name }}</p>
+    <p id="editAccount">Welcome, {{ user.name }}</p>
     <hr>
 
 <div class="wholePage">
     <div class="profilePic">
-        <div>
-            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
-        </div>
+        {% if user.image %}
+            <div>
+                <img class="picture" src="{{ user.image.url }}" alt=""/>
+            </div>
+        {% else %}
+            <div>
+                <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
+           </div>
+        {% endif %}
 
     </div>
 
@@ -30,7 +36,7 @@
 
 <div class="container">
 
-<h1>Hello {{ User.first_name }}!</h1>
+<h1>Hello {{ user.name }}!</h1>
 <p>
 
 </p>

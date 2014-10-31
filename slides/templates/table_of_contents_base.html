@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="{% static "css/zenburn.css" %}">
 {#    <link rel='stylesheet' href="{% static 'css/bootstrap.css' %}"#}
     <link rel="stylesheet/less" type="text/css" media="all" href="{% static "less/style.less" %}" />
-    <link rel="stylesheet/less" type='text/css' href="{% static 'css/comments.less'  %}">
+    <link rel="stylesheet/less" type='text/css' href="{% static 'less/comments.less' %}">
     <script>
         less = {
             logLevel: 0
@@ -45,9 +45,6 @@
     <script src="{% static "js/less-1.7.0.min.js" %}"></script>
     <script src="{% static "js/jquery-1.11.1.js" %}"></script>
     <script src="{% static 'js/side_bar.js' %}"></script>
-    <script>
-        var comments = {{ comments | safe }}
-    </script>
 </head>
 
 <body class="{% block body_css %}{% endblock body_css %}">
@@ -77,21 +74,15 @@
                                     </span>
                             </div>
                             <hr>
+
                             <div id="add_comment_block">
                             </div>
                             <!-------< Comments with resources >------->
                             <div id="comment-block">
-                                  <div id="single-comment">
-                                    <dl class="accordion" id="side-comment">
-                                        <dt>1 - 1 Learn Web Development. Build awesome things.</dt>
-                                            <dd>
-                                                <ul>
-
-                                                </ul>
-                                            </dd>
-                                    </dl>
+                                <div id="single-comment">
+                                    <dl class="accordion" id="side-comment"></dl>
                                 </div>
-                                <hr>
+
                             </div>
                         </div>
                     </div>
@@ -110,23 +101,23 @@
                             <!-------< Comments with resources >------->
                                 <div id="resource-field">
 
-                                    <textarea placeholder="Add your files here..." name="resources" id="resource-area" cols="30" rows="10"></textarea>
+                                    <textarea placeholder="Comment here..." name="resources" id="resource-area" cols="30" rows="5" style="height:150px;"></textarea>
 
                                 </div>
 
 {#                            Drag and Drop html starts here#}
                             <!-- The container for the uploaded files -->
-                            <div id="files" class="files"></div>
-                            <span class="btn btn-default btn-lg fileinput-button">
+                            <div data-spy="scroll" data-target=".files">
+                                <div id="files" class="files">
+
+                                </div>
+                            </div>
+                            <span class="btn btn-default btn-lg fileinput-button" id="upload-button">
 {#                                <i class="glyphicon glyphicon-plus"></i>#}
-                                <span>Drag Files Here</span>
+                                <span class="drag-files-here">Drag Files Here</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input id="fileupload" type="file" name="files[]" multiple>
                             </span>
-{#                            <!-- The global progress bar -->#}
-{#                            <div id="progress" class="progress">#}
-{#                                <div class="progress-bar progress-bar-success"></div>#}
-{#                            </div>#}
                             <hr class="line">
                         {#                            Drag and Drop html ends here#}
 
@@ -201,6 +192,6 @@
             ]
         });
     </script>
-    <script src="{% static "js/slides.js" %}"></script>
+{#    <script src="{% static "js/slides.js" %}"></script>#}
 </body>
 </html>

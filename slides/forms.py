@@ -17,6 +17,7 @@ class UserForm(UserCreationForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
+        self.fields['name'].attrs = {'class': 'form-control'}
 
 
     class Meta:
@@ -33,7 +34,7 @@ class UserForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
-class UpdateUserForm(forms.Form):
+class UpdateUserForm(UserCreationForm):
     helper = FormHelper()
     helper.form_method = "POST"
     helper.form_class = 'form-horizontal'
@@ -41,8 +42,8 @@ class UpdateUserForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(UpdateUserForm, self).__init__(*args, **kwargs)
-        self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
+        self.fields['image'].label = "Upload a new profile photo"
 
 
     class Meta:
@@ -62,27 +63,36 @@ class CommentForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         #unpack slide info from args array, know position for each thing
-        print args
         if args:
-            self.data['text'] = args[0]
-            # ['resources'] #resources = name on text field
-            print args[1]
-            for attachment in args[1]:
-                unique_id = str(uuid.uuid4())
-                while Attachment.objects.filter(uuid=unique_id).exists():
+            self.text = args[2]
+            if args[1]:
+                for attachment in args[1].getlist('files[]'):
                     unique_id = str(uuid.uuid4())
-                new_attachment = Attachment.objects.create(file=attachment, uuid=unique_id) #change file to attachment.file?
-                self.attachments.append(new_attachment)
-            self.slide, created = Slide.objects.get_or_create(week_number=args[2], day=args[3], slide_set=args[4], slide_number=args[5], slide_header=args[6], url=args[7])
+                    while Attachment.objects.filter(uuid=unique_id).exists():
+                        unique_id = str(uuid.uuid4())
+                    new_attachment = Attachment.objects.create(file=attachment, uuid=unique_id)
+                    self.attachments.append(new_attachment)
+                self.slide, created = Slide.objects.get_or_create(week_number=int(args[2]), day=args[3], slide_set=int(args[4]), slide_number=int(args[5]), slide_header=args[6], url=args[7])
 
-    def save(self, commit=True):
-        comment = super(CommentForm, self).save(commit=False)
-        comment.slide = self.slide
-        # comment.user = request.user
-        for attachment in self.attachments:
-            attachment.comment = comment
-        if commit:
-            comment.save()
+    def save(self, user, commit=True, comment_id=None):
+        #DRY up
+        if comment_id:
+            comment = Comment.objects.get(pk=comment_id)
             for attachment in self.attachments:
-                attachment.save()
-        return comment
+                attachment.comment = comment
+            if commit:
+                comment.save()
+                for attachment in self.attachments:
+                    attachment.save()
+            return comment
+        else:
+            comment = super(CommentForm, self).save(commit=False)
+            comment.slide = self.slide
+            comment.user = user
+            for attachment in self.attachments:
+                attachment.comment = comment
+            if commit:
+                comment.save()
+                for attachment in self.attachments:
+                    attachment.save()
+            return comment
