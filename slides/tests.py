@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.test import TestCase
 import factory
 from slides.forms import UserForm
-from slides.models import User, Comment, Attachment
+from slides.models import User, Comment, Attachment, Slide
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -121,14 +121,21 @@ class ModelTestCase(TestCase):
             last_name='1',
             password='1',
         )
+        self.slide = Slide.objects.create(
+            week_number = 1,
+            day = '2_am',
+            slide_set = 2,
+            slide_number = 1,
+            slide_header = 'hello world',
+            url = '/week1/1'
+        )
         self.comment = Comment.objects.create(
             text='hello',
             user=self.user,
             date=datetime.now(),
-            week_number='1',
-            day='5_am',
-            slide_set='2',
-            slide_number='1',
+            slide = self.slide,
+            slide_set= 2,
+            slide_number=1,
         )
         self.attachment = Attachment.objects.create(
             file='media/comment_attachment/hello_world.jpg',

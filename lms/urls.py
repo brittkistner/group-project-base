@@ -1,18 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
-from lms import settings
-from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url("^$", TemplateView.as_view(template_name="index.html"), name="slides_home"),
-    url("^test$", TemplateView.as_view(template_name="test.html"), name="test"),
     url('^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\w+)/$',
         'slides.views.get_slides', name='get_slides'),
-    url('^get_comments/(?P<day>\w+)/(?P<slide_set>\w+)/$',
-        'slides.views.update_comments', name='update_comments'),
 
     # LOGIN AND REGISTER
     url("^login/$", 'django.contrib.auth.views.login', name='login'),
@@ -32,9 +27,10 @@ urlpatterns = patterns('',
     url(r'^profile/edit/$', 'slides.views.edit_profile', name='edit_profile'),
 
     # FETCH SLIDES & RESOURCES
-    url(r'^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"), #BK changed this
+    # url(r'^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/$', 'slides.views.get_slides', name="get_slides"), #BK changed this
     url(r'^create_comment/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\d+)/(?P<slide_number>\d+)/$',
         'slides.views.create_comment', name='create_comment'),
+    url(r'^create_comment/$', 'slides.views.create_comment', name='create_comment'),
 
     # Week 1 - OO Python
     url("^week1/1/$", TemplateView.as_view(template_name="week1/1.html"), name="week1_day1"),

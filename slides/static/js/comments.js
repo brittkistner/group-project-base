@@ -19,9 +19,8 @@ $(document).ready(function () {
     var slideSet;
     var slideNumber;
     var slideHeader;
-    var url;
+    var url_web;
     var headerHtml;
-    var fileData = [];
 
     $('#comments1').hide();
     $('#btn2').click(function () {
@@ -31,12 +30,12 @@ $(document).ready(function () {
 
     $('#btn1').click(function () {
         $('#resources1').show();
-        $('#comments1').show();
+        $('#comments1').hide();
     });
 
     var review_url = function(path){
        //figure out regex
-        url = path;
+        url_web = path;
         weekNumber = path.split('/')[1];
         day = path.split('/')[2]; //string
         if (path.split('/').length < 5){
@@ -63,8 +62,6 @@ $(document).ready(function () {
    $('#save').on('click', function(){
        review_url(location.pathname);
        getHeader();
-       console.log('passed review_url and getHeader');
-       console.log(fileData);
        $.ajax({
            //think about passing the data differently (maybe through data?)
             url: '/create_comment/' + weekNumber + '/'
@@ -75,8 +72,7 @@ $(document).ready(function () {
             data: {
                 'text': JSON.stringify($('#resource-area').val()),
                 'slide_header': JSON.stringify(slideHeader),
-                'files[]' : fileData,
-                'url' : JSON.stringify(url)
+                'url' : JSON.stringify(url_web)
             },
             success: function(response) {
                 console.log('success');
@@ -89,15 +85,15 @@ $(document).ready(function () {
         });
    });
 
-
-
    //Drag and drop below
     $(function () {
+        review_url(location.pathname);
+        getHeader();
         'use strict';
-
+        var url = '/create_comment/';
         $('#fileupload').fileupload({
-            dataType: 'json',
-            autoUpload: false,
+            url: url,
+            autoUpload: true,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py)$/i,
             maxFileSize: 20000000, // 20 MB
             // Enable image resizing, except for Android and Opera,
@@ -108,10 +104,19 @@ $(document).ready(function () {
             previewMaxWidth: 100,
             previewMaxHeight: 100,
             previewCrop: true
+        }).bind('fileuploadsubmit', function (e, data) {
+            console.log('fileupload');
+            data.formData = {'id': 'success',
+                            'slide_header': JSON.stringify(slideHeader),
+                            'url' : JSON.stringify(url_web),
+                            'text': JSON.stringify(''),
+                            'weekNumber': JSON.stringify(weekNumber),
+                            'day': JSON.stringify(day),
+                            'slideSet': JSON.stringify(slideSet),
+                            'slideNumber': JSON.stringify(slideNumber),
+                            'comment_id': JSON.stringify(commentId)}; //finish this part
+            console.log('file submit');
         }).on('fileuploadadd', function (e, data) {
-            fileData.push(data.files[0]);
-            console.log(data);
-            console.log(fileData);
             data.context = $('<div/>').appendTo('#files');
             $.each(data.files, function (index, file) {
                 var node = $('<p/>')
@@ -137,12 +142,6 @@ $(document).ready(function () {
                     .text('Upload')
                     .prop('disabled', !!data.files.error);
             }
-        }).on('fileuploadprogressall', function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
         }).on('fileuploaddone', function (e, data) {
             $.each(data.result.files, function (index, file) {
                 if (file.url) {
