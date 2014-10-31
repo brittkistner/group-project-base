@@ -77,19 +77,21 @@
                                     </span>
                             </div>
                             <hr>
+
                             <div id="add_comment_block">
                             </div>
                             <!-------< Comments with resources >------->
                             <div id="comment-block">
-                                  <div id="single-comment">
-                                    <dl class="accordion" id="side-comment">
-                                        <dt>1 - 1 Learn Web Development. Build awesome things.</dt>
-                                            <dd>
-                                                <ul>
-
-                                                </ul>
-                                            </dd>
-                                    </dl>
+                                <div class="accordion">
+                                <dt><a href="">Panel 1</a></dt>
+                                <dd>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</dd>
+                                <hr>
+                                <dt><a href="">Panel 2</a></dt>
+                                <dd>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</dd>
+                                <hr>
+                                <dt><a href="">Panel 3</a></dt>
+                                <dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</dd>
+                                <hr>
                                 </div>
                                 <hr>
                             </div>
@@ -117,9 +119,9 @@
 {#                            Drag and Drop html starts here#}
                             <!-- The container for the uploaded files -->
                             <div id="files" class="files"></div>
-                            <span class="btn btn-default btn-lg fileinput-button">
+                            <span class="btn btn-default btn-lg fileinput-button" id="upload-button">
 {#                                <i class="glyphicon glyphicon-plus"></i>#}
-                                <span>Drag Files Here</span>
+                                <span class="drag-files-here">Drag Files Here</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input id="fileupload" type="file" name="files[]" multiple>
                             </span>
