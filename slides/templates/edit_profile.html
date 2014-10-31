@@ -1,6 +1,6 @@
 {% load static %}
 
-{#{% load crispy_forms_tags %}#}
+{% load crispy_forms_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -23,9 +23,19 @@
 
 <div class="wholePage">
     <div class="profilePic">
-        <div>
-            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
-        </div>
+        {% if user.image %}
+            <div>
+                <img class="picture" src="{{ user.image.url }}" alt=""/>
+{#                {{ form.image }}#}
+            </div>
+        {% else %}
+            <div>
+                <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>
+           </div>
+        {% endif %}
+{#        <div>#}
+{#            <img class="picture" src="{% static "img/default-profile-photo.png" %}" alt=""/>#}
+{#        </div>#}
         <p class="photoText">Upload a new profile photo</p>
     </div>
 
@@ -36,14 +46,14 @@
         <label for="inputRealName" class="col-sm-2 control-label">Real Name</label>
         <div class="col-sm-10">
           {{ form.name }}
-          <input type="name" class="form-control" id="inputRealName" placeholder="Name">
+{#          <input type="name" class="form-control" id="inputRealName" placeholder="Name">#}
         </div>
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10">
             {{ form.email }}
-          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+{#          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">#}
         </div>
       </div>
       <div class="form-group">

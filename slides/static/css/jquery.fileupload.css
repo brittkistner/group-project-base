@@ -15,6 +15,11 @@
   overflow: hidden;
   width: 100%;
   background-color: white;
+  height: 150px;
+  font: monospace;
+  /*color: #c7c7c7;*/
+   color: rgba(235, 235, 235, 0.3);
+
 }
 .fileinput-button input {
   position: absolute;
@@ -36,3 +41,9 @@
     height: 100%;
   }
 }
+
+#files {
+    height:250px;
+    /*position: relative;*/
+}
+

@@ -22,6 +22,8 @@ $(document).ready(function () {
     var url_web;
     var headerHtml;
 
+    $('body').scrollspy({ target: '.navbar-example' })
+
     $('#comments1').hide();
     $('#btn2').click(function () {
         $('#resources1').hide();
@@ -60,6 +62,8 @@ $(document).ready(function () {
 
 
    $('#save').on('click', function(){
+       $('#resources1').hide();
+       $('#comments1').show();
        review_url(location.pathname);
        getHeader();
        $.ajax({
@@ -94,15 +98,15 @@ $(document).ready(function () {
         $('#fileupload').fileupload({
             url: url,
             autoUpload: false,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py)$/i,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py|txt)$/i,
             maxFileSize: 20000000, // 20 MB
             // Enable image resizing, except for Android and Opera,
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
             disableImageResize: /Android(?!.*Chrome)|Opera/
                 .test(window.navigator.userAgent),
-            previewMaxWidth: 100,
-            previewMaxHeight: 100,
+            previewMaxWidth: 75,
+            previewMaxHeight: 75,
             previewCrop: true,
         })
 //            .bind('fileuploadsubmit', function (e, data) {
@@ -124,6 +128,9 @@ $(document).ready(function () {
                 var node = $('<p/>')
                         .append($('<span/>').text(file.name));
                 node.appendTo(data.context);
+                $('<a href="#">remove</a>')
+                    .css({"font-size":"50%","color":"rgba(235, 235, 235, 0.6)" })
+                    .appendTo(data.context);
                 $('#fileupload').data = file.data
             });
             console.log('fileuploadadd');

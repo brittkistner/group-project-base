@@ -37,7 +37,8 @@ def register(request):
 # PROFILE #
 ###########
 def profile(request):
-    return render(request, 'profile.html')
+    data = {"user":request.user}
+    return render(request, 'profile.html', data)
 
 ################
 # EDIT PROFILE #
