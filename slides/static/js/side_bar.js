@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 
     function makeSlideCall() {
-       var currentSlideInfo = review_url(document.URL);
+       var currentSlideInfo = review_url(window.location.href);
         $.ajax({
             url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day,
             type: 'GET',
@@ -42,8 +42,8 @@ $(document).ready(function(){
     makeSlideCall();
 
     function fillComments(){
-        var currentSlideInfo = review_url(document.location.href);
-        console.log(document.location.href);
+        var currentSlideInfo = review_url(window.location.href);
+        console.log(window.location.href);
         if (isNaN(currentSlideInfo.slideNumber) === false) {
 
             var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
@@ -68,11 +68,11 @@ $(document).ready(function(){
                     console.log(response);
                     var comments = response;
 
-                    if ($('dt:contains(' + response[0].fields.day + ')').find('li').length === 0) {
+                    if ($('dt:contains(' + response[0].fields.day + ')').find('div').length === 0) {
                     comments.forEach(function (comment){
                         var $dt = $('dt:contains(' + comment.fields.slide_set + ')');
                         $dt.append(
-                                '<li>' + comment.fields.text + '</li>'
+                                '<div id=comment>' + comment.fields.text + '</div>'
                         );
                       });
                     }
@@ -86,7 +86,7 @@ $(document).ready(function(){
     $(document).keydown(function (keyNumber) {
         var key = keyNumber.which;
         if( key === 39 || key === 38 ||  key === 37 || key === 40) {
-            fillComments();
+            setTimeout(fillComments(), 1000);
         }
     });
 
