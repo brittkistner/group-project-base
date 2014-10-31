@@ -93,7 +93,7 @@ $(document).ready(function () {
         var url = '/create_comment/';
         $('#fileupload').fileupload({
             url: url,
-            autoUpload: true,
+            autoUpload: false,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png|js|html|css|pdf|py)$/i,
             maxFileSize: 20000000, // 20 MB
             // Enable image resizing, except for Android and Opera,
@@ -103,26 +103,30 @@ $(document).ready(function () {
                 .test(window.navigator.userAgent),
             previewMaxWidth: 100,
             previewMaxHeight: 100,
-            previewCrop: true
-        }).bind('fileuploadsubmit', function (e, data) {
-            console.log('fileupload');
-            data.formData = {'id': 'success',
-                            'slide_header': JSON.stringify(slideHeader),
-                            'url' : JSON.stringify(url_web),
-                            'text': JSON.stringify(''),
-                            'weekNumber': JSON.stringify(weekNumber),
-                            'day': JSON.stringify(day),
-                            'slideSet': JSON.stringify(slideSet),
-                            'slideNumber': JSON.stringify(slideNumber),
-                            'comment_id': JSON.stringify(commentId)}; //finish this part
-            console.log('file submit');
-        }).on('fileuploadadd', function (e, data) {
+            previewCrop: true,
+        })
+//            .bind('fileuploadsubmit', function (e, data) {
+//            console.log('fileupload');
+//            data.formData = {'id': 'success',
+//                            'slide_header': JSON.stringify(slideHeader),
+//                            'url' : JSON.stringify(url_web),
+//                            'text': JSON.stringify(''),
+//                            'weekNumber': JSON.stringify(weekNumber),
+//                            'day': JSON.stringify(day),
+//                            'slideSet': JSON.stringify(slideSet),
+//                            'slideNumber': JSON.stringify(slideNumber),
+//                            'comment_id': JSON.stringify(commentId)}; //finish this part
+//            console.log('file submit');
+//        })
+            .on('fileuploadadd', function (e, data) {
             data.context = $('<div/>').appendTo('#files');
             $.each(data.files, function (index, file) {
                 var node = $('<p/>')
                         .append($('<span/>').text(file.name));
                 node.appendTo(data.context);
+                $('#fileupload').data = file.data
             });
+            console.log('fileuploadadd');
         }).on('fileuploadprocessalways', function (e, data) {
             var index = data.index,
                 file = data.files[index],

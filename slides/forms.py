@@ -17,6 +17,7 @@ class UserForm(UserCreationForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['image'].label = "Upload a new profile photo"
         self.fields['name'].label = "Real Name"
+        self.fields['name'].attrs = {'class': 'form-control'}
 
 
     class Meta:
@@ -33,7 +34,7 @@ class UserForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
-class UpdateUserForm(forms.Form):
+class UpdateUserForm(UserCreationForm):
     helper = FormHelper()
     helper.form_method = "POST"
     helper.form_class = 'form-horizontal'
@@ -42,6 +43,7 @@ class UpdateUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(UpdateUserForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Real Name"
+        self.fields['image'].label = "Upload a new profile photo"
 
 
     class Meta:

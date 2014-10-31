@@ -47,7 +47,7 @@ def edit_profile(request):
     print request.user.name
     editable_userobject = User.objects.get(pk=request.user.id)
     if request.method == "POST":
-        form = UpdateUserForm(request.POST, request.FILES, instance=editable_userobject)
+        form = UpdateUserForm(request.POST, request.FILES)
         if form.is_valid():
             print "VALID"
             # username = form.cleaned_data['username']
@@ -58,7 +58,7 @@ def edit_profile(request):
     else:
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
-        form = UpdateUserForm()
+        form = UpdateUserForm(instance=editable_userobject)
     data = {"user": request.user, "form": form}
     return render(request, "edit_profile.html", data)
 
