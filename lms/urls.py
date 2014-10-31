@@ -9,11 +9,12 @@ urlpatterns = patterns('',
 
     url("^$", TemplateView.as_view(template_name="index.html"), name="slides_home"),
     url("^test$", TemplateView.as_view(template_name="test.html"), name="test"),
-    url('^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\w+)/$',
+    url('^get_slides/(?P<week_number>\w+)/(?P<day>\w+)/$',
         'slides.views.get_slides', name='get_slides'),
-    url('^get_comments/(?P<day>\w+)/(?P<slide_set>\w+)/$',
-        'slides.views.update_comments', name='update_comments'),
-
+    url('^subset_comment/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\w+)/(?P<slide_number>\w+)$',
+        'slides.views.subset_comment', name='update_comments'),
+    url('^front_comment/(?P<week_number>\w+)/(?P<day>\w+)/(?P<slide_set>\w+)/$',
+        'slides.views.front_comment', name='front_comment'),
     # LOGIN AND REGISTER
     url("^login/$", 'django.contrib.auth.views.login', name='login'),
     url("^register/$", 'slides.views.register', name="register"),

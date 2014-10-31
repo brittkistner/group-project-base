@@ -3,13 +3,15 @@
 
 #right-nav div {
     margin-left: 2%;
-    background-color: white;
 
+}
+#rocketULogo img {
+  margin-right: -2%;
 }
 
 #right-nav {
 
-  border-left: 3px solid @left-divider;
+  border-left: 2px solid @left-divider;
   // top right bottom left
   margin: -20px 0  0 3%;
 
@@ -19,10 +21,8 @@
   // This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page
   height: 750px;
   width: 375px;
-  color: white;
+  z-index: 1;
   background-color: white;
-
-
 
 }
 
@@ -32,18 +32,19 @@
   overflow-y: auto;
 
   // Extend the line to the divider but bring the text back in
-  margin: -10px -30px 0 -30px !important;
+  margin: -5px -30px 0 -30px !important;
   padding: 0 30px 0 30px;
   div {
     // top right bottom left
     width: 80%;
     font-size: 18px;
     color: darkgrey;
+    margin-left: 0px;
   }
 
-  hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  dt {
+    margin-top: -5%;
+    margin-bottom: -5%;
   }
 
 }
@@ -52,24 +53,28 @@
   margin-top: 0;
   margin-bottom: -15px;
 
-
   button {
       position: relative;
       float: right;
+      margin-right: 5px;
   }
+
   font-family: 'ProximaNova-Bold';
 }
 
 
 #single-comment {
 
-  dt:visited {
-    text-decoration: black;
-  }
-
+//    font-size: 12px;
+  font-size: 15px;
+  overflow: visible;
+  border-bottom: lightgrey;
+  margin-top: -10px;
 }
 
 #runningTitle {
+  margin-top: 0;
+  padding-bottom: 3%;
   margin-left: 1%;
 }
 
@@ -78,19 +83,79 @@
   width: 68%
 }
 
+<<<<<<< HEAD
+hr {
+  width: 400px;
+}
+
+.reveal .slide-number {
+	position: absolute;
+	display: inline-block;
+    margin-right: 455px;
+    margin-bottom: 30px;
+	right: 15px;
+	bottom: 15px;
+	opacity: 0.5;
+	z-index: 31;
+	font-size: 12px;
+}
+
+#resource-area {
+  border: none;
+  width: 97.5%;
+}
+
+.drag-file {
+  text-align: center;
+
+}
+
+.line {
+  margin-top: 120px;
+}
+
+.save-button {
+  text-align: center;
+}
+
+#save {
+  width: 300px;
+  height: 35px;
+}
+
+textarea {
+  font-size: 20px;
+  height: 350px;
+
+}
+
+#drag {
+  margin-top: 50px;
+  color: lightgrey;
+}
+
+.add-a-resource {
+  color: #2EB8E6;
+=======
 .accordion {
   font-size: 10px;
+>>>>>>> new_develop
 
 }
 
 #side-comment {
-  dt {
-    padding: 0 0 0 3%;
-    font-family: 'ProximaNova-Bold';
-    font-weight: 30px;
-    font-size: 15px;
-    width: 100%;
-  }
+  margin: -2% 0 -2% 0;
 }
 
+#comment {
+  color: black !important;
+  margin-top: 2%;
+}
 
+<<<<<<< HEAD
+#resources button {
+  margin-right: 3%;
+}
+=======
+
+>>>>>>> new_develop

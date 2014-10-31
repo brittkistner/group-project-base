@@ -113,34 +113,38 @@ def create_comment(request, week_number, day, slide_set, slide_number):
 #Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
 #create ajax call
 
-def get_slides(request, week_number, day, slide_set):
+def get_slides(request, week_number, day):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
-    slides = Comment.objects.filter(
-        slide__week_number=week_number,
-        slide__day=day,
-        slide_set=slide_set
-    )
+    slides = Slide.objects.filter(
+        day=day,
+        week_number=week_number,
+    ).order_by('id')
     return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
+
 
 #######################
 # REFRESH COMMENTS #
 ######################
 #Update comments for the comment section which is open (or which has just been clicked)
 #create ajax call
-def update_comments(request, day, slide_set):
-    slides_and_comments = []
-    slides = Comment.objects.filter(slide__day=day, slide__slide_set=slide_set)
-    # for slide in slides:
-    #     for comment in slide.comments.all():
-    #         slides_and_comments.append(list(slide) + list(comment.text))
+def subset_comment(request, week_number, day, slide_set, slide_number):
 
+    slides = Comment.objects.filter(
+        slide__week_number=week_number,
+        slide__day=day,
+        slide__slide_set=slide_set,
+        slide__slide_number=slide_number
+    )
 
     return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 
 
+def front_comment(request, week_number, day, slide_set):
 
+    slides = Comment.objects.filter(
+        week_number=week_number,
+        day=day,
+        slide_set=slide_set,
+    )
 
-
-# def test_comment(request):
-#     return render(request, "test_comment.html")
-
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')

@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="{% static "css/zenburn.css" %}">
 {#    <link rel='stylesheet' href="{% static 'css/bootstrap.css' %}"#}
     <link rel="stylesheet/less" type="text/css" media="all" href="{% static "less/style.less" %}" />
-    <link rel="stylesheet/less" type='text/css' href="{% static 'css/comments.less'  %}">
+    <link rel="stylesheet/less" type='text/css' href="{% static 'less/comments.less' %}">
     <script>
         less = {
             logLevel: 0
@@ -45,9 +45,6 @@
     <script src="{% static "js/less-1.7.0.min.js" %}"></script>
     <script src="{% static "js/jquery-1.11.1.js" %}"></script>
     <script src="{% static 'js/side_bar.js' %}"></script>
-    <script>
-        var comments = {{ comments | safe }}
-    </script>
 </head>
 
 <body class="{% block body_css %}{% endblock body_css %}">
@@ -82,18 +79,10 @@
                             </div>
                             <!-------< Comments with resources >------->
                             <div id="comment-block">
-                                <div class="accordion">
-                                <dt><a href="">Panel 1</a></dt>
-                                <dd>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</dd>
-                                <hr>
-                                <dt><a href="">Panel 2</a></dt>
-                                <dd>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</dd>
-                                <hr>
-                                <dt><a href="">Panel 3</a></dt>
-                                <dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</dd>
-                                <hr>
+                                <div id="single-comment">
+                                    <dl class="accordion" id="side-comment"></dl>
                                 </div>
-                                <hr>
+
                             </div>
                         </div>
                     </div>
@@ -203,6 +192,6 @@
             ]
         });
     </script>
-    <script src="{% static "js/slides.js" %}"></script>
+{#    <script src="{% static "js/slides.js" %}"></script>#}
 </body>
 </html>
