@@ -2,37 +2,32 @@
 @horizontal-line: #EBEBEB;
 
 #right-nav div {
-    margin-left: 2%;
+    margin-left: 3%;
 
-}
-#rocketULogo img {
-  margin-right: -2%;
 }
 
 #right-nav {
 
-  border-left: 2px solid @left-divider;
+  border-left: 3px solid @left-divider;
   // top right bottom left
   margin: -20px 0  0 3%;
-
   // Push the divider to the way to the top but pull the text back down
   padding-top: 20px;
 
   // This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page
   height: 750px;
   width: 375px;
-  z-index: 1;
-  background-color: white;
+  overflow-y: auto;
 
 }
 
 #comment-block {
-
+  margin-left: 20px;
   height: 750px;
-  overflow-y: auto;
+//  overflow-y: auto;
 
   // Extend the line to the divider but bring the text back in
-  margin: -5px -30px 0 -30px !important;
+  margin: -10px -30px 0 -30px !important;
   padding: 0 30px 0 30px;
   div {
     // top right bottom left
@@ -40,11 +35,15 @@
     font-size: 18px;
     color: darkgrey;
     margin-left: 0px;
+
+
+
   }
 
   dt {
-    margin-top: -5%;
-    margin-bottom: -5%;
+    margin-left: 15px;
+    margin-top: -15px;
+    margin-bottom: -15px;
   }
 
 }
@@ -52,13 +51,15 @@
 #resources {
   margin-top: 0;
   margin-bottom: -15px;
+  margin-left: 10px;
+  margin-right: 15px;
+
 
   button {
       position: relative;
       float: right;
       margin-right: 5px;
   }
-
   font-family: 'ProximaNova-Bold';
 }
 
@@ -73,7 +74,7 @@
 }
 
 #runningTitle {
-  margin-top: 0;
+  margin-top: 3%;
   padding-bottom: 3%;
   margin-left: 1%;
 }
@@ -83,7 +84,6 @@
   width: 68%
 }
 
-<<<<<<< HEAD
 hr {
   width: 400px;
 }
@@ -116,30 +116,26 @@ hr {
 
 .save-button {
   text-align: center;
+  position: fixed;
+
 }
 
 #save {
   width: 300px;
   height: 35px;
+  margin-top: -10px;
 }
 
 textarea {
-  font-size: 20px;
+  font-size: 18px;
   height: 350px;
-
+  margin-left: 15px;
 }
 
-#drag {
-  margin-top: 50px;
-  color: lightgrey;
-}
+
 
 .add-a-resource {
   color: #2EB8E6;
-=======
-.accordion {
-  font-size: 10px;
->>>>>>> new_develop
 
 }
 
@@ -147,15 +143,34 @@ textarea {
   margin: -2% 0 -2% 0;
 }
 
-#comment {
-  color: black !important;
-  margin-top: 2%;
+#upload-button {
+  margin-bottom: -40px;
 }
 
-<<<<<<< HEAD
-#resources button {
-  margin-right: 3%;
+.drag-files-here {
+  color: #808080;
+  font-weight: 900;
 }
-=======
 
->>>>>>> new_develop
+
+
+//#right-nav {
+//  overflow-y: auto;
+//}
+
+.drag-files-here {
+  height: 35px;
+}
+
+#content {
+  margin-top: -10px;
+}
+
+#overall-comments {
+  margin-left: 15px;
+
+}
+
+#resource-field {
+  width: 325px;
+}

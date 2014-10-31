@@ -35,9 +35,11 @@
 //});
 
 $(document).ready(function () {
+//    $('all-weeks-copy2').hide();
     $('#all-weeks-copy').hide();
     $('#search').click(function () {
         $('#all-weeks').hide();
+        $('#index-section').hide();
         $('#all-weeks-copy').show();
     });
 
@@ -51,26 +53,40 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $('#all-weeks-copy2').hide();
+    $('#target').submit(function () {
+        $('#all-weeks-copy').hide();
+        $('#all-weeks-copy2').show();
+    });
+});
+
+$(document).ready(function () {
     $('#resource-section').hide();
     $('#slides-section').hide();
-    $('#search').click(function () {
-        $('#index-section').hide();
-        $('#resource-section').show();
-        $('#slides-btn').click(function () {
-            $('#resource-section').hide();
-            $('#slides-section').show();
-            $('#resource-btn').click(function () {
+    $('#slides-btn').click(function () {
+        $('#resource-section').hide();
+        $('#slides-section').show();
+        $('#resource-btn').click(function () {
+            $('#slides-section').hide();
+            $('#resource-section').show();
+            $('#search2').click(function () {
                 $('#slides-section').hide();
-                $('#resource-section').show();
-                $('#search2').click(function () {
-                    $('#slides-section').hide();
-                    $('#resource-section').hide();
-                    $('#index-section').show();
+                $('#resource-section').hide();
+                $('#index-section').show();
 
 
                 });
-
             });
         });
+    });
+
+$(document).ready(function () {
+    $('#search3').click(function () {
+        $('#slides-section').hide();
+        $('#all-weeks-copy2').hide();
+        $('#resource-section').hide();
+        $('#index-section').show();
+        $('#all-weeks').show();
+
     });
 });
