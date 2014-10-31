@@ -22,7 +22,7 @@ $(document).ready(function () {
     var url_web;
     var headerHtml;
 
-    $('body').scrollspy({ target: '.navbar-example' })
+    $('body').scrollspy({ target: '.navbar-example' });
 
     $('#comments1').hide();
     $('#btn2').click(function () {
@@ -37,6 +37,7 @@ $(document).ready(function () {
 
     var review_url = function(path){
        //figure out regex
+        console.log('The review URL has been called');
         url_web = path;
         weekNumber = path.split('/')[1];
         day = path.split('/')[2]; //string
@@ -50,7 +51,7 @@ $(document).ready(function () {
             slideSet= parseInt(path.split('/')[4]);
             slideNumber = parseInt(path.split('/')[5]);
         }
-        console.log(weekNumber, day, slideSet, slideNumber);
+        console.log('Week:' + weekNumber + ' Day: ' + day + ' Slideset: ' + slideSet + ' Slide number: ' +  slideNumber);
     };
 
     var getHeader = function(){

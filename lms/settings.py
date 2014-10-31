@@ -101,7 +101,6 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, "static", *MEDIA_URL.strip("/").split("/
 # STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'slides/static')
-
 # try:
 #     from production import *
 # except ImportError:

@@ -3,7 +3,6 @@ $(document).ready(function(){
 
     function makeSlideCall() {
        var currentSlideInfo = review_url(window.location.href);
-        console.log('a slide call has been made');
         $.ajax({
             url: '/get_slides/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day,
             type: 'GET',
@@ -12,6 +11,7 @@ $(document).ready(function(){
 
                 // Get the current day and slide set from the window and expand the appropriate accordion
                 slides.forEach(function(slide) {
+                    console.log('Success for slide call');
                         $('.accordion').append(
                             '<dt>'+ slide.fields.slide_set + ' ' + slide.fields.slide_header + '</dt>' +
                                 '<dd>' +
@@ -37,7 +37,7 @@ $(document).ready(function(){
         var currentSlideInfo = review_url(window.location.href);
         console.log(window.location.href);
         if (isNaN(currentSlideInfo.slideNumber) === false) {
-            console.log('The slide number is being pulled');    
+            console.log('The slide number is being pulled');
             var slideInWindow = String(currentSlideInfo.day) + " - " + String(currentSlideInfo.slideSet);
             $.ajax({
                 url: '/subset_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' +
@@ -57,7 +57,7 @@ $(document).ready(function(){
                 url: '/front_comment/' + currentSlideInfo.weekNumber + '/' + currentSlideInfo.day + '/' + currentSlideInfo.slideSet,
                 type: 'GET',
                 success: function (response) {
-                    console.log(response);
+                    console.log('Success for filling out the comments');
                     var comments = response;
 
                     if ($('dt:contains(' + response[0].fields.day + ')').find('div').length === 0) {
@@ -78,7 +78,7 @@ $(document).ready(function(){
     $(document).keydown(function (keyNumber) {
         var key = keyNumber.which;
         if( key === 39 || key === 38 ||  key === 37 || key === 40) {
-            setTimeout(fillComments(), 1000);
+            fillComments();
         }
     });
 

@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -9,6 +9,11 @@ from slides.models import Comment,User, Slide
 ###############
 # REGISTRATION #
 ###############
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 def register(request):
     if request.method == 'POST':
