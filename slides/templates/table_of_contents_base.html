@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="{% static 'css/reveal.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{% static 'css/jquery.fileupload.css' %}">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -42,6 +44,10 @@
     </script>
     <script src="{% static "js/less-1.7.0.min.js" %}"></script>
     <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <script src="{% static 'js/side_bar.js' %}"></script>
+    <script>
+        var comments = {{ comments | safe }}
+    </script>
 </head>
 
 <body class="{% block body_css %}{% endblock body_css %}">
@@ -66,10 +72,14 @@
                                 <!-------< Top of resource/comment navigation >------>
                                     <span id="overall-comments">
                                         Resources
+
                                         <button type="button" class="btn btn-default" id="btn2">Add +</button>
                                     </span>
                             </div>
                             <hr>
+
+                            <div id="add_comment_block">
+                            </div>
                             <!-------< Comments with resources >------->
                             <div id="comment-block">
                                 <div class="accordion">
@@ -82,6 +92,7 @@
                                 <dt><a href="">Panel 3</a></dt>
                                 <dd>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</dd>
                                 <hr>
+
                                 </div>
                             </div>
                         </div>
@@ -99,35 +110,71 @@
                             </div>
                             <hr>
                             <!-------< Comments with resources >------->
-                            <div id="resource-field">
+                                <div id="resource-field">
 
-                                <textarea placeholder="Add your files here..." name="resources" id="resource-area" cols="30" rows="10"></textarea>
+                                    <textarea placeholder="Add your files here..." name="resources" id="resource-area" cols="30" rows="10"></textarea>
 
-                            </div>
+                                </div>
 
-                            <div class="drag-file">
-                                <h4 id="drag">Drag Files Here</h4>
-                            </div>
-
+{#                            Drag and Drop html starts here#}
+                            <!-- The container for the uploaded files -->
+                            <div id="files" class="files"></div>
+                            <span class="btn btn-default btn-lg fileinput-button" id="upload-button">
+{#                                <i class="glyphicon glyphicon-plus"></i>#}
+                                <span class="drag-files-here">Drag Files Here</span>
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="fileupload" type="file" name="files[]" multiple>
+                            </span>
+{#                            <!-- The global progress bar -->#}
+{#                            <div id="progress" class="progress">#}
+{#                                <div class="progress-bar progress-bar-success"></div>#}
+{#                            </div>#}
                             <hr class="line">
+                        {#                            Drag and Drop html ends here#}
 
                             <div class="save-button">
                                 <button type="button" class="btn btn-default" id="save">Save</button>
                             </div>
                         </div>
                     </div>
-
-                    </div>
+{#                    </div>#}
                 </div>
-                {% block slides %}
-                {% endblock %}
-                <div class="footer">
-                </div>
+            </div>
+            {% block slides %}
+            {% endblock %}
+            <div class="footer">
+            </div>
         </div>
     </div>
     <script src="{% static "js/head.min.js" %}"></script>
     <script src="{% static "js/reveal.js" %}"></script>
     <script src="{% static "js/comments.js" %}"></script>
+{#    <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>#}
+
+    <!-- ALL FILES BELOW FOR DRAG AND DROP FUNCTIONALITY -->
+
+    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+    <script src="{% static 'js/vendor/jquery.ui.widget.js'%}"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="{% static 'js/load-image.all.min.js'%}"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="{% static 'js/canvas-to-blob.min.js' %}"></script>
+    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="{% static 'js/jquery.fileupload.js' %}"></script>
+    <!-- The File Upload processing plugin -->
+    <script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
+    <!-- The File Upload image preview & resize plugin -->
+    <script src="{% static 'js/jquery.fileupload-image.js' %}"></script>
+    <!-- The File Upload audio preview plugin -->
+    <script src="{% static 'js/jquery.fileupload-audio.js' %}"></script>
+    <!-- The File Upload video preview plugin -->
+    <script src="{% static 'js/jquery.fileupload-video.js' %}"></script>
+    <!-- The File Upload validation plugin -->
+    <script src="{% static 'js/jquery.fileupload-validate.js' %}"></script>
     <script>
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration

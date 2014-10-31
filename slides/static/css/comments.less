@@ -2,7 +2,7 @@
 @horizontal-line: #EBEBEB;
 
 #right-nav div {
-    margin-left: 2%;
+    margin-left: 3%;
 
 }
 
@@ -11,22 +11,20 @@
   border-left: 3px solid @left-divider;
   // top right bottom left
   margin: -20px 0  0 3%;
-
   // Push the divider to the way to the top but pull the text back down
   padding-top: 20px;
 
   // This is pulled from line 113 in table_of_contents_base.html to ensure divider is full page
   height: 750px;
   width: 375px;
-
+  overflow-y: auto;
 
 }
 
-
 #comment-block {
-
+  margin-left: 20px;
   height: 750px;
-  overflow-y: auto;
+//  overflow-y: auto;
 
   // Extend the line to the divider but bring the text back in
   margin: -10px -30px 0 -30px !important;
@@ -43,6 +41,7 @@
   }
 
   dt {
+    margin-left: 15px;
     margin-top: -15px;
     margin-bottom: -15px;
   }
@@ -52,6 +51,7 @@
 #resources {
   margin-top: 0;
   margin-bottom: -15px;
+  margin-left: 10px;
 
 
   button {
@@ -73,6 +73,8 @@
 }
 
 #runningTitle {
+  margin-top: 3%;
+  padding-bottom: 3%;
   margin-left: 1%;
 }
 
@@ -113,26 +115,56 @@ hr {
 
 .save-button {
   text-align: center;
+  position: relative;
+
 }
 
 #save {
   width: 300px;
   height: 35px;
+  margin-top: -10px;
 }
 
 textarea {
-  font-size: 20px;
+  font-size: 18px;
   height: 350px;
 
 }
 
-#drag {
-  margin-top: 50px;
-  color: lightgrey;
-}
+
 
 .add-a-resource {
   color: #2EB8E6;
 
 }
 
+#side-comment {
+  margin: -2% 0 -2% 0;
+}
+
+#upload-button {
+  margin-bottom: -40px;
+}
+
+.drag-files-here {
+  color: #808080;
+  font-weight: 900;
+}
+
+
+
+//#right-nav {
+//  overflow-y: auto;
+//}
+
+.drag-files-here {
+  height: 35px;
+}
+
+#content {
+  margin-top: -10px;
+}
+
+#overall-comments {
+  margin-left: 15px;
+}

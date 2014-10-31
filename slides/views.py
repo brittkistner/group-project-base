@@ -1,13 +1,13 @@
+import code
 import json
 from django.contrib.auth import authenticate, login
-from django.contrib.comments import CommentForm
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from slides.forms import UserForm, CommmentForm
+from slides.forms import UserForm, UpdateUserForm, CommentForm
 import uuid
-from slides.models import Comment, Attachment, Slide
+from slides.models import Comment, Attachment, Slide, User
 
 ###############
 # REGISTRATION #
@@ -47,87 +47,64 @@ def profile(request):
 ################
 
 def edit_profile(request):
+    print request.user.name
+    editable_userobject = User.objects.get(pk=request.user.id)
     if request.method == "POST":
-        # We prefill the form by passing 'instance', which is the specific
-        # object we are editing
-        # pass in request.files
-        # User.objets.filter(pk=request.user.id).update(pass in all fields, field=???)
-        form = UserForm(request.POST, request.FILES, instance=request.user)
-        user = form.save(commit=False)
-        user.save()
+        print "in post"
+        form = UpdateUserForm(request.POST, request.FILES, instance=editable_userobject)
+        if form.is_valid():
+            print "VALID"
+            # username = form.cleaned_data['username']
+            # name = form.cleaned_data['name']
+            editable_userobject.save()
+            # User.objets.filter(pk=request.user.id).update(username=username, name=name)
         return redirect("profile")
     else:
         # We prefill the form by passing 'instance', which is the specific
         # object we are editing
-        form = UserForm(instance=request.user)
+        form = UpdateUserForm(instance=request.user)
     data = {"user": request.user, "form": form}
     return render(request, "edit_profile.html", data)
 
 
 
-########################
-# CREATING ATTACHMENTS #
-#######################
-
-def create_attachment(attachments, comment):
-    attachments = []
-    for attachment in attachments:
-        unique_id = str(uuid.uuid4())
-        while Attachment.objects.filter(uuid=unique_id).exists():
-            unique_id = str(uuid.uuid4())
-        attachment = Attachment.objects.create(file='', comment=comment, uuid=unique_id) #change file to attachment.file
-        attachments.append(attachment)
-    return attachments
-
-###################
-# RESOURCE UPLOAD #
-###################
-
-# def image_upload(request):
-#     response = {'files': []}
-#     # Loop through our files in the files list uploaded
-#     file_info = {}
-#     for file in request.FILES.getlist('files[]'):
-#         file_info[file.name] = file
-#
-#         # Save output for return as JSON
-#         response['files'].append({
-#             'name': '%s' % file.name,
-#             'size': '%d' % file.size,
-#             # 'thumbnailUrl': '%s' % new_image.picture.url,
-#             # 'deleteUrl': '\/image\/delete\/%s' % file.name,
-#             # "deleteType": 'DELETE'
-#         })
-#
-#     return HttpResponse(json.dumps(response), content_type='application/json')
-
 ######################
 # CREATING COMMENTS #
 #####################
+# @csrf_exempt
+# def create_comment(request, week_number, day, slide_set, slide_number, slide_header, url):
+#     if request.method == 'POST':
+#         print request.POST
+#         print request.FILES
+#         form = CommentForm(request.POST, request.FILES, week_number, day, slide_set, slide_number, slide_header, url)
+#         if form.is_valid:
+#         #validate that there is some text or an attachment
+#             comment = form.save()
+#             comment.user = request.user
+#             comment.save()
+#
+#         response = serializers.serialize('json', [comment]) #ajax hide form and show resources pane
+#         return HttpResponse(response, content_type='application/json')
+
 @csrf_exempt
-def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number=1):
-    # pass
+def create_comment(request, week_number, day, slide_set, slide_number):
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            data = json.loads(request.body)
-            comment = Comment.objects.create(text=data['text'],
-                                             user=request.user,
-                                             week_number=week_number,
-                                             day=day, slide_set=slide_set,
-                                             slide_number=slide_number)
+        # data = json.loads(request.body)
+        # print "This is data {}".format(data)
+        files = json.loads(request.POST.getlist('files[]')[0])
+        print files
+        print request.POST.getlist('files[]')
+        print request.POST.getlist('files[]')[0][0]
+        print request.POST
+        form = CommentForm(request.POST, week_number, day, slide_set, slide_number)
+        if form.is_valid:
+        #validate that there is some text or an attachment
+            comment = form.save()
+            comment.user = request.user
+            comment.save()
 
-            #attachments come through as an array.
-            attachments = create_attachment(data['attachments'], comment)
-
-        #What should this response return.  Using HttpResponse for now
-        response = serializers.serialize('json', [comment])
+        response = serializers.serialize('json', [comment]) #ajax hide form and show resources pane
         return HttpResponse(response, content_type='application/json')
-    else:
-        form = CommmentForm()
-    return render(request, "comment_form.html", {
-        'form': form,
-    })
 
 
 #######################
@@ -135,19 +112,35 @@ def create_comment(request, week_number=3, day='2_am', slide_set=1, slide_number
 ######################
 #Retrieve initial comments on slide load.  Once all comments are loaded, will continue to refresh comments section for the comment which is open.  See update_comments below.
 #create ajax call
-def get_comment(request, week_number, day):
+
+def get_slides(request, week_number, day, slide_set):
     #will retrieve all comments for a specific week and (part) of day.  Does not separate based on slide number
-    slides = Slide.objects.filter(week_number=week_number, day=day).order_by('slide_set','slide_number', 'date')
-    data = {'slides': slides}
-    return render(request, "all_slides.html", data)
+    slides = Comment.objects.filter(
+        slide__week_number=week_number,
+        slide__day=day,
+        slide_set=slide_set
+    )
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
 
 #######################
 # REFRESH COMMENTS #
 ######################
 #Update comments for the comment section which is open (or which has just been clicked)
 #create ajax call
-def update_comments(request, week_number, day, slide_set, slide_number):
-    comments = Comment.objects.filter(week_number=week_number, day=day, slide_set=slide_set, slide_number=slide_number).order_by('date')
-    data = {'comments': comments}
-    return render(request, "update_comments.html", data)
+def update_comments(request, day, slide_set):
+    slides_and_comments = []
+    slides = Comment.objects.filter(slide__day=day, slide__slide_set=slide_set)
+    # for slide in slides:
+    #     for comment in slide.comments.all():
+    #         slides_and_comments.append(list(slide) + list(comment.text))
+
+
+    return HttpResponse(serializers.serialize('json', slides), content_type='application/json')
+
+
+
+
+
+# def test_comment(request):
+#     return render(request, "test_comment.html")
 

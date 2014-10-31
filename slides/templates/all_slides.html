@@ -1,14 +1,11 @@
-
-{#figure out how to link up the comment to a specific slide number#}
-
-{#{% for slide in slides %}#}
 {#    {{ slide.slide_header }}#}
 {#    {% for comment in slide.comments.all %}#}
-{#    {{ comment.user.image }}#}
-{#    {{ comment.user.name }}#}
-{#    {{ comment.text }}#}
-{#    {% for attachment in comment.attachments.all %}#}
-{#        {{ attachment }}#}
+{#        {{ comment.user.image }}#}
+{#        {{ comment.user.name }}#}
+{#        {{ comment.text }}#}
+{#        {% for attachment in comment.attachments.all %}#}
+{#            {{ attachment }}#}
+{#        {% endfor %}#}
+{#        {{ comment.date }}#}
 {#    {% endfor %}#}
-{#    Posted on {{ comment.date }} at {{  }}  FINISH#}
-{#{% endfor %}#}
+{#    {{ slide }}#}

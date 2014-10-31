@@ -31,7 +31,6 @@
   height: 750px;
   overflow-y: auto;
 
-
   // Extend the line to the divider but bring the text back in
   margin: -10px -30px 0 -30px !important;
   padding: 0 30px 0 30px;
@@ -40,6 +39,11 @@
     width: 80%;
     font-size: 18px;
     color: darkgrey;
+  }
+
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
 }
@@ -59,10 +63,10 @@
 
 #single-comment {
 
-//    font-size: 12px;
-  font-size: 15px;
-  overflow: visible;
-  border-bottom: lightgrey;
+  dt:visited {
+    text-decoration: black;
+  }
+
 }
 
 #runningTitle {
@@ -75,5 +79,18 @@
 }
 
 .accordion {
-  font-size: 15px;
+  font-size: 10px;
+
 }
+
+#side-comment {
+  dt {
+    padding: 0 0 0 3%;
+    font-family: 'ProximaNova-Bold';
+    font-weight: 30px;
+    font-size: 15px;
+    width: 100%;
+  }
+}
+
+

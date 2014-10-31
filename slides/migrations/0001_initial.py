@@ -57,6 +57,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('text', models.TextField()),
                 ('date', models.DateTimeField(auto_now_add=True)),
+                ('slide_set', models.IntegerField(default=0)),
+                ('slide_number', models.IntegerField(default=0)),
             ],
             options={
             },
@@ -71,6 +73,7 @@ class Migration(migrations.Migration):
                 ('slide_set', models.IntegerField()),
                 ('slide_number', models.IntegerField()),
                 ('slide_header', models.CharField(max_length=255)),
+                ('url', models.URLField(null=True)),
             ],
             options={
             },
