@@ -48,6 +48,7 @@ class ViewTestCase(TestCase):
             'username': user.username,
             'password': user.password
         }
+        # should this test the user was logged in properly? or the redirect worked?
         self.client.post(reverse('login'), data)
 
     def test_edit_account_page(self):
@@ -106,6 +107,8 @@ class FormTestCase(TestCase):
 
 class ModelTestCase(TestCase):
     def setUp(self):
+        # These tests aren't all that necessary, they would break easily if someone added or removed a field,
+        # even though that may not be a bad thing.
         self.user = User.objects.create(
             image='',
             name='user1',
