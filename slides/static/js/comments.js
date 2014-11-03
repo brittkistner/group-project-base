@@ -39,6 +39,7 @@ $(document).ready(function () {
        //figure out regex
         console.log('The review URL has been called');
         url_web = path;
+        // Should set path.split('/') to a variable that you can reuse
         weekNumber = path.split('/')[1];
         day = path.split('/')[2]; //string
         if (path.split('/').length < 5){
