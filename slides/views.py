@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from slides.forms import UserForm, UpdateUserForm, CommentForm
 from slides.models import Comment,User, Slide
 
+# Nice comment headers
+
 ###############
 # REGISTRATION #
 ###############
@@ -73,10 +75,13 @@ def edit_profile(request):
 ######################
 # CREATING COMMENTS #
 #####################
+# Don't use @csrf_exempt!
 @csrf_exempt
 # def create_comment(request, week_number, day, slide_set, slide_number):
 def create_comment(request):
     if request.method == 'POST':
+        # I'm guessing you're using getlist since you're trying to allow multiple upload of comments
+        # Would it make more sense just to make one API call per comment being uploaded? You could fire them all off at once
         text = request.POST.getlist('text')
         week_number = request.POST.getlist('weekNumber')
         day = request.POST.getlist('day')
@@ -84,6 +89,7 @@ def create_comment(request):
         slide_number = request.POST.getlist('slideNumber')
         url = request.POST.getlist('url')
         form = CommentForm(request.POST, request.FILES, text, week_number, day, slide_set, slide_number, url)
+        # should be form.is_valid() since it's a method
         if form.is_valid and request.POST.getlist('commentId'):
         #validate that there is some text or an attachment
             comment_id = request.POST.getlist('commentId')
