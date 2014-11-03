@@ -61,6 +61,7 @@ class CommentForm(forms.Form):
         fields = ("text",)
 
     def __init__(self, *args, **kwargs):
+        # Not entirely sure what's going on here. Is using this form the best way to accomplish adding the attachments you want?
         super(CommentForm, self).__init__(*args, **kwargs)
         #unpack slide info from args array, know position for each thing
         if args:
@@ -75,7 +76,7 @@ class CommentForm(forms.Form):
                 self.slide, created = Slide.objects.get_or_create(week_number=int(args[2]), day=args[3], slide_set=int(args[4]), slide_number=int(args[5]), slide_header=args[6], url=args[7])
 
     def save(self, user, commit=True, comment_id=None):
-        #DRY up
+        #DRY up  <-- agreed
         if comment_id:
             comment = Comment.objects.get(pk=comment_id)
             for attachment in self.attachments:
