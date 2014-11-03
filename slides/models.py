@@ -30,6 +30,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, related_name="comments")
     date = models.DateTimeField(auto_now_add=True)
     slide = models.ForeignKey(Slide, related_name="comments")
+    # Does the comment needs these fields if it's related to a Slide?
     slide_set = models.IntegerField(null=True)
     slide_number = models.IntegerField(null=True)
     week_number = models.IntegerField(null=True)
